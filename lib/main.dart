@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:teamvortex/views/stateless/welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
+// This widget is the root of your application.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -15,11 +17,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const WelcomePage(),
     );
   }
 }
 
+// MyHomePage
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -28,6 +31,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+// _MyHomePageState
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 

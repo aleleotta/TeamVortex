@@ -1,4 +1,4 @@
-# teamvortex
+# TeamVortex
 
 A new Flutter project.
 
