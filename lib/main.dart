@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:teamvortex/views/stateful/home_page.dart';
+import 'package:teamvortex/views/stateless/login_page.dart';
+import 'package:teamvortex/views/stateless/register_page.dart';
 import 'package:teamvortex/views/stateless/welcome_page.dart';
 
 void main() {
@@ -18,9 +21,20 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const WelcomePage(),
+      
+      // View router for navigation
+      routes: {
+        "/welcomeView": (context) => const WelcomePage(),
+        "/homeView": (context) => const HomePage(),
+        "/loginView": (context) => const LoginPage(),
+        "/registerView": (context) => const RegisterPage(),
+      },
+
     );
   }
 }
+
+// STATEFUL WIDGET EXAMPLE STARTS HERE
 
 // MyHomePage
 class MyHomePage extends StatefulWidget {

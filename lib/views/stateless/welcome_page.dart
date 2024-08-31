@@ -44,9 +44,11 @@ class WelcomePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: screenHeight > 650 ? 400 : screenHeight > 480 ? 200 : 100), //400 200 100
+            SizedBox(height: screenHeight > 650 ? 400 : screenHeight > 480 ? 200 : 100),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/loginView");
+              },
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.cyan[100]),
                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
@@ -60,7 +62,9 @@ class WelcomePage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/registerView");
+              },
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.cyan[100]),
                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
@@ -69,8 +73,10 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              child: const Text("Get Started",
-                  style: TextStyle(fontSize: 20, color: Colors.black)),
+              child: const Text(
+                "Get Started",
+                style: TextStyle(fontSize: 20, color: Colors.black)
+              ),
             )
           ],
         ),
