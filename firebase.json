@@ -1,0 +1,23 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "teamvortexdb-16b33",
+                    "appId": "1:436089060:android:df3473ab7669c17cc73cf1",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "teamvortexdb-16b33",
+                    "configurations": {
+                        "android": "1:436089060:android:df3473ab7669c17cc73cf1",
+                        "web": "1:436089060:web:9fa6b1ba240ff1efc73cf1",
+                        "windows": "1:436089060:web:022e5f8edd139ed0c73cf1"
+                    }
+                }
+            }
+        }
+    }
+}

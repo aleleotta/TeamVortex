@@ -77,7 +77,7 @@ class WelcomePage extends StatelessWidget {
                 "Get Started",
                 style: TextStyle(fontSize: 20, color: Colors.black)
               ),
-            )
+            ),
           ],
         ),
       ),
