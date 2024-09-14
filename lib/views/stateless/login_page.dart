@@ -16,7 +16,9 @@ class LoginPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.blue,
         ),
-        body: Center(
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
           child: Container(
             padding: const EdgeInsets.all(16),
             height: 320,
@@ -35,7 +37,9 @@ class LoginPage extends StatelessWidget {
                 inputField("Username/Email"),
                 const SizedBox(height: 20),
                 inputField("Password", isPassword: true),
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
+                errorMessage("Passwords don't match"),
+                const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, "/homeView");
@@ -54,6 +58,7 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           ),
+        ),
         )
       );
   }

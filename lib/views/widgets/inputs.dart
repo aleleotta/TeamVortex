@@ -14,3 +14,13 @@ Widget inputField(String? parameterName, {bool isPassword = false}) {
     )
   );
 }
+
+Text errorMessage(String message) {
+  return Text(
+    message,
+    style: const TextStyle(
+      color: Colors.red,
+      fontWeight: FontWeight.bold
+    ),
+  );
+}

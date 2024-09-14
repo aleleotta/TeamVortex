@@ -71,16 +71,17 @@ class RegisterPage extends StatelessWidget {
             inputField("Password"),
             const SizedBox(height: 20),
             inputField("Repeat password"),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
+            errorMessage("Passwords don't match"),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, "/homeView");
+                Navigator.pushNamed(context, "/homeView"); //This will change soon. Backend will be added.
               },
               style: ButtonStyle(
                 backgroundColor:
                     WidgetStateProperty.all(Colors.blue[800]),
-                shape: WidgetStateProperty.all<
-                    RoundedRectangleBorder>(
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
