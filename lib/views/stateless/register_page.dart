@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:teamvortex/viewmodels/login_register_vm.dart';
 import 'package:teamvortex/views/widgets/inputs.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -9,45 +11,47 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
       return _registerView(context, constraints.maxWidth, constraints.maxHeight);
-    }
-    )
-    );
+    }));
   }
 
   Widget _registerView(BuildContext context, double screenWidth, double screenHeight) {
+    //LoginRegisterViewModel viewModel = Provider.of<LoginRegisterViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-        child: Stack(children: <Widget>[
-          _registerForm(context, screenWidth, screenHeight),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: IconButton(
-            onPressed: () {
-              _scrollController.animateTo(
-                  _scrollController.position.maxScrollExtent,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.fastOutSlowIn
-              );
-            },
-            icon: const Icon(Icons.arrow_downward_rounded, size: 35),
-          )
+      body: Consumer<LoginRegisterViewModel>(
+        builder: (context, viewModel, child) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Center(
+            child: Stack(children: <Widget>[
+              _registerForm(context, screenWidth, screenHeight),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: IconButton(
+                onPressed: () {
+                  _scrollController.animateTo(
+                      _scrollController.position.maxScrollExtent,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.fastOutSlowIn
+                  );
+                },
+                icon: const Icon(Icons.arrow_downward_rounded, size: 35),
+              )
+              ),
+              ]
+            ),
           ),
-          ]
-        ),
-      ),
+        );
+        },
       )
     );
   }
 
   Widget _registerForm(BuildContext context, double screenWidth, double screenHeight) {
     return Container(
-    // Try using a Stack here.
     padding: const EdgeInsets.all(16),
     height: 290,
     width: 350,
@@ -60,9 +64,12 @@ class RegisterPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text("Register",
-                style: TextStyle(
-                    fontSize: 30, fontWeight: FontWeight.bold)),
+            const Text(
+              "Register",
+              style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.bold
+              )
+            ),
             const SizedBox(height: 20),
             inputField("Email"),
             const SizedBox(height: 20),
@@ -72,7 +79,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 20),
             inputField("Repeat password"),
             const SizedBox(height: 10),
-            errorMessage("Passwords don't match"),
+            errorMessage(""),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
@@ -87,9 +94,12 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ),
               ),
-              child: const Text("Login",
-                  style: TextStyle(
-                      fontSize: 20, color: Colors.white)),
+              child: const Text(
+                "Login",
+                style: TextStyle(
+                  fontSize: 20, color: Colors.white
+                )
+              ),
             )
           ],
         )

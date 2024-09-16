@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 inputField("Password", isPassword: true),
                 const SizedBox(height: 10),
-                errorMessage("Passwords don't match"),
+                errorMessage(""),
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
