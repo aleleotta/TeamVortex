@@ -9,43 +9,41 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
-      return _registerView(context, constraints.maxWidth, constraints.maxHeight);
-    }));
+    return Scaffold(body: LayoutBuilder(
+      builder: (context, constraints) {
+        return _registerView(context, constraints.maxWidth, constraints.maxHeight);
+      }
+      )
+    );
   }
 
   Widget _registerView(BuildContext context, double screenWidth, double screenHeight) {
-    //LoginRegisterViewModel viewModel = Provider.of<LoginRegisterViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
       ),
-      body: Consumer<LoginRegisterViewModel>(
-        builder: (context, viewModel, child) {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Center(
-            child: Stack(children: <Widget>[
-              _registerForm(context, screenWidth, screenHeight),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                child: IconButton(
-                onPressed: () {
-                  _scrollController.animateTo(
-                      _scrollController.position.maxScrollExtent,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.fastOutSlowIn
-                  );
-                },
-                icon: const Icon(Icons.arrow_downward_rounded, size: 35),
-              )
-              ),
-              ]
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Stack(children: <Widget>[
+            _registerForm(context, screenWidth, screenHeight),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              child: IconButton(
+              onPressed: () {
+                _scrollController.animateTo(
+                    _scrollController.position.maxScrollExtent,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.fastOutSlowIn
+                );
+              },
+              icon: const Icon(Icons.arrow_downward_rounded, size: 35),
+            )
             ),
+            ]
           ),
-        );
-        },
+        ),
       )
     );
   }

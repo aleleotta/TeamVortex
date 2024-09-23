@@ -4,8 +4,8 @@ import 'package:teamvortex/models/entities/Account.dart';
 class LoginRegisterViewModel extends ChangeNotifier {
   late Account account;
   String username = "";
-  String password = "";
   String email = "";
+  String password = "";
   String confirmPassword = "";
   String errorString = "";
 
