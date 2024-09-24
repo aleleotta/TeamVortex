@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:teamvortex/viewmodels/login_register_vm.dart';
 import 'package:teamvortex/views/widgets/inputs.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+  final TextEditingController _usernameEmailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +38,27 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
                 ),
                 const SizedBox(height: 20),
-                inputField("Username/Email"),
+                inputField("Username/Email", controller: _usernameEmailController),
                 const SizedBox(height: 20),
-                inputField("Password", isPassword: true),
+                Stack(
+              children: <Widget>[
+                inputField("Password", controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
+                Positioned(
+                  right: 0,
+                  child: IconButton(
+                  onPressed: () {
+                    context.read<LoginRegisterViewModel>().passwordVisible = !context.read<LoginRegisterViewModel>().passwordVisible;
+                  },
+                  icon: context.watch<LoginRegisterViewModel>().passwordIcon)
+                ),
+              ]
+            ),
                 const SizedBox(height: 10),
-                errorMessage(""),
+                errorMessage(context.watch<LoginRegisterViewModel>().errorString), //The error string value comes from the provider.
                 const SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, "/homeView");
+                    Navigator.pushNamed(context, "/homeView"); //This will change soon. Backend will be added.
                   },
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(Colors.blue[800]),
@@ -52,8 +68,9 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: const Text("Login",
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                  child: const Text(
+                    "Submit",
+                    style: TextStyle(fontSize: 20, color: Colors.white)),
                 )
               ],
             ),

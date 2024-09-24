@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-Widget inputField(String? labelName, {bool isPassword = false}) {
+Widget inputField(String? labelName, {bool isPassword = false, TextEditingController? controller}) {
   return SizedBox(
     width: 200,
     child: Center(
       child: TextField(
+        controller: controller,
         decoration: InputDecoration(
           labelText: labelName,
           border: const OutlineInputBorder(),

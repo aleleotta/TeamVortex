@@ -6,6 +6,10 @@ import 'package:teamvortex/views/widgets/inputs.dart';
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _repeatPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,19 +73,46 @@ class RegisterPage extends StatelessWidget {
               )
             ),
             const SizedBox(height: 20),
-            inputField("Email"),
+            inputField("Email", controller: _emailController),
             const SizedBox(height: 20),
-            inputField("Username"),
+            inputField("Username", controller: _usernameController),
             const SizedBox(height: 20),
-            inputField("Password"),
+            Stack(
+              children: <Widget>[
+                inputField("Password", controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
+                Positioned(
+                  right: 0,
+                  child: IconButton(
+                  onPressed: () {
+                    context.read<LoginRegisterViewModel>().passwordVisible = !context.read<LoginRegisterViewModel>().passwordVisible;
+                  },
+                  icon: context.watch<LoginRegisterViewModel>().passwordIcon)
+                ),
+              ]
+            ),
             const SizedBox(height: 20),
-            inputField("Repeat password"),
+            Stack(
+              children: <Widget>[
+                inputField("Repeat password", controller: _repeatPasswordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
+                Positioned(
+                  right: 0,
+                  child: IconButton(
+                    onPressed: () {
+                      context.read<LoginRegisterViewModel>().passwordVisible = !context.read<LoginRegisterViewModel>().passwordVisible;
+                    },
+                    icon: context.watch<LoginRegisterViewModel>().passwordIcon)
+                ),
+              ]
+            ),
             const SizedBox(height: 10),
-            errorMessage(""),
+            errorMessage(context.watch<LoginRegisterViewModel>().errorString), //The error string value comes from the provider.
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, "/homeView"); //This will change soon. Backend will be added.
+                context.read<LoginRegisterViewModel>().checkInfoRegister(
+                  _emailController.text, _usernameController.text, _passwordController.text, _repeatPasswordController.text
+                );
+                //Navigator.pushNamed(context, "/homeView"); //This will change soon. Backend will be added.
               },
               style: ButtonStyle(
                 backgroundColor:
@@ -93,10 +124,8 @@ class RegisterPage extends StatelessWidget {
                 ),
               ),
               child: const Text(
-                "Login",
-                style: TextStyle(
-                  fontSize: 20, color: Colors.white
-                )
+                "Submit",
+                style: TextStyle(fontSize: 20, color: Colors.white)
               ),
             )
           ],
