@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:teamvortex/models/entities/Account.dart';
+
+import '../models/services/firebase_auth_services.dart';
 
 class LoginRegisterViewModel extends ChangeNotifier {
   late Account _account;
@@ -24,14 +27,10 @@ class LoginRegisterViewModel extends ChangeNotifier {
   // This function will check if the account information is correct.
   void checkInfoLogin(String emailOrUsername, String password) {}
 
-  // It will be called into checkInfoLogin() once the information has been validated to call Firebase
-  // and login into the account.
-  void loginIntoFirebase() {}
-
   // This function will check if the account information is correct.
   // If all data is valid, _registerAccountIntoFirebase() will be called.
-  void checkInfoRegister(String email, String username, String password, String repeatPassword) {
-    if (email.isEmpty || username.isEmpty || password.isEmpty || repeatPassword.isEmpty) {
+  void checkInfoRegister(BuildContext context, String firstName, String lastName, String email, String username, String password, String repeatPassword) {
+    if (firstName.isEmpty || lastName.isEmpty || email.isEmpty || username.isEmpty || password.isEmpty || repeatPassword.isEmpty) {
       errorString = "All fields need to be filled in.";
     } else if (!RegExp(r'^[a-z0-9.-]{3,}@[a-z0-9-]{2,}\.[a-z]{2,}$').hasMatch(email)) {
       errorString = "The email is not valid.";
@@ -43,11 +42,11 @@ class LoginRegisterViewModel extends ChangeNotifier {
       errorString = "The passwords do not match.";
     } else {
       errorString = "";
+      _account = Account.defineAttributesWithNames(firstName, lastName, email, username, password);
+      // Authentication begins.
+      FirebaseAuthServices().signUpWithEmailAndPassword(email, password, username);
+      Navigator.pushNamed(context, '/homeView');
     }
     notifyListeners();
   }
-
-  // It will be called into checkInfo() once the information has been validated to call Firebase
-  // and register the account information.
-  void _registerAccountIntoFirebase() {}
 }

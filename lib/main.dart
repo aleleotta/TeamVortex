@@ -1,12 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:teamvortex/firebase_options.dart';
+import 'package:teamvortex/models/services/firebase_auth_services.dart';
 import 'package:teamvortex/viewmodels/login_register_vm.dart';
 import 'package:teamvortex/views/home_page.dart';
 import 'package:teamvortex/views/login_page.dart';
 import 'package:teamvortex/views/register_page.dart';
 import 'package:teamvortex/views/welcome_page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 

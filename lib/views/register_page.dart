@@ -6,6 +6,8 @@ import 'package:teamvortex/views/widgets/inputs.dart';
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNamesController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -73,6 +75,10 @@ class RegisterPage extends StatelessWidget {
               )
             ),
             const SizedBox(height: 20),
+            inputField("First name", controller: _firstNameController),
+            const SizedBox(height: 20),
+            inputField("Last names", controller: _lastNamesController),
+            const SizedBox(height: 20),
             inputField("Email", controller: _emailController),
             const SizedBox(height: 20),
             inputField("Username", controller: _usernameController),
@@ -110,7 +116,8 @@ class RegisterPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.read<LoginRegisterViewModel>().checkInfoRegister(
-                  _emailController.text, _usernameController.text, _passwordController.text, _repeatPasswordController.text
+                  context,
+                  _firstNameController.text, _lastNamesController.text, _emailController.text, _usernameController.text, _passwordController.text, _repeatPasswordController.text
                 );
                 //Navigator.pushNamed(context, "/homeView"); //This will change soon. Backend will be added.
               },
