@@ -10,9 +10,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LayoutBuilder(builder: (context, constraints) {
-      return _loginView(context, constraints.maxWidth, constraints.maxHeight);
-    }));
+    return Scaffold(
+      body: LayoutBuilder(builder: (context, constraints) {
+        return _loginView(context, constraints.maxWidth, constraints.maxHeight);
+    }
+    ));
   }
 
   Widget _loginView(BuildContext context, double screenWidth, double screenHeight) {
@@ -25,24 +27,24 @@ class LoginPage extends StatelessWidget {
           child: Center(
           child: Container(
             padding: const EdgeInsets.all(16),
-            height: 320,
-            width: 280,
+            width: 350,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: Colors.cyan[200],
             ),
-            child: Column(
+            child: SingleChildScrollView(
+              child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Text("Login",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
                 ),
-                const SizedBox(height: 20),
-                inputField("Username/Email", controller: _usernameEmailController),
+                const SizedBox(height: 40),
+                inputField("Username/Email", controller: _usernameEmailController, maxWidth: 250),
                 const SizedBox(height: 20),
                 Stack(
               children: <Widget>[
-                inputField("Password", controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
+                inputField("Password", maxWidth: 250, controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
                 Positioned(
                   right: 0,
                   child: IconButton(
@@ -53,12 +55,18 @@ class LoginPage extends StatelessWidget {
                 ),
               ]
             ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 40),
                 errorMessage(context.watch<LoginRegisterViewModel>().errorString), //The error string value comes from the provider.
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/homeView"); //This will change soon. Backend will be added.
+                  onPressed: () async {
+                    await context.read<LoginRegisterViewModel>().checkInfoLogin(
+                      _usernameEmailController.text, _passwordController.text
+                    ).then((resultCode) {
+                      if (resultCode == 0) {
+                        Navigator.pushNamed(context, "/homeView");
+                      }
+                    });
                   },
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(Colors.blue[800]),
@@ -73,6 +81,7 @@ class LoginPage extends StatelessWidget {
                     style: TextStyle(fontSize: 20, color: Colors.white)),
                 )
               ],
+            )
             ),
           ),
         ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Widget inputField(String? labelName, {bool isPassword = false, TextEditingController? controller}) {
+Widget inputField(String? labelName, {bool isPassword = false, TextEditingController? controller, double maxWidth = 200}) {
   return SizedBox(
-    width: 200,
+    width: maxWidth,
     child: Center(
       child: TextField(
         controller: controller,

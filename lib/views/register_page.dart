@@ -36,16 +36,19 @@ class RegisterPage extends StatelessWidget {
             Positioned(
               bottom: 0,
               left: 0,
-              child: IconButton(
-              onPressed: () {
-                _scrollController.animateTo(
-                    _scrollController.position.maxScrollExtent,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.fastOutSlowIn
-                );
-              },
-              icon: const Icon(Icons.arrow_downward_rounded, size: 35),
-            )
+              child: Visibility(
+                visible: false,
+                child: IconButton( // Disabled
+                onPressed: () {
+                  _scrollController.animateTo(
+                      _scrollController.position.maxScrollExtent,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.fastOutSlowIn
+                  );
+                },
+                icon: const Icon(Icons.arrow_downward_rounded, size: 35),
+              ),
+              )
             ),
             ]
           ),
@@ -57,7 +60,7 @@ class RegisterPage extends StatelessWidget {
   Widget _registerForm(BuildContext context, double screenWidth, double screenHeight) {
     return Container(
     padding: const EdgeInsets.all(16),
-    height: 290,
+    //height: 430,
     width: 350,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
@@ -75,17 +78,17 @@ class RegisterPage extends StatelessWidget {
               )
             ),
             const SizedBox(height: 20),
-            inputField("First name", controller: _firstNameController),
+            inputField("First name", controller: _firstNameController, maxWidth: 250),
             const SizedBox(height: 20),
-            inputField("Last names", controller: _lastNamesController),
+            inputField("Last names", controller: _lastNamesController, maxWidth: 250),
             const SizedBox(height: 20),
-            inputField("Email", controller: _emailController),
+            inputField("Email", controller: _emailController, maxWidth: 250),
             const SizedBox(height: 20),
-            inputField("Username", controller: _usernameController),
+            inputField("Username", controller: _usernameController, maxWidth: 250),
             const SizedBox(height: 20),
             Stack(
               children: <Widget>[
-                inputField("Password", controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
+                inputField("Password", maxWidth: 250, controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
                 Positioned(
                   right: 0,
                   child: IconButton(
@@ -99,7 +102,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 20),
             Stack(
               children: <Widget>[
-                inputField("Repeat password", controller: _repeatPasswordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
+                inputField("Repeat password", maxWidth: 250, controller: _repeatPasswordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
                 Positioned(
                   right: 0,
                   child: IconButton(
@@ -114,12 +117,14 @@ class RegisterPage extends StatelessWidget {
             errorMessage(context.watch<LoginRegisterViewModel>().errorString), //The error string value comes from the provider.
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {
-                context.read<LoginRegisterViewModel>().checkInfoRegister(
-                  context,
+              onPressed: () async {
+                await context.read<LoginRegisterViewModel>().checkInfoRegister(
                   _firstNameController.text, _lastNamesController.text, _emailController.text, _usernameController.text, _passwordController.text, _repeatPasswordController.text
-                );
-                //Navigator.pushNamed(context, "/homeView"); //This will change soon. Backend will be added.
+                ).then((resultCode) {
+                  if (resultCode == 0) {
+                    Navigator.pushNamed(context, "/homeView");
+                  }
+                });
               },
               style: ButtonStyle(
                 backgroundColor:
