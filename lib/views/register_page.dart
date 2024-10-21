@@ -15,10 +15,11 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LayoutBuilder(
-      builder: (context, constraints) {
-        return _registerView(context, constraints.maxWidth, constraints.maxHeight);
-      }
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return _registerView(context, constraints.maxWidth, constraints.maxHeight);
+        }
       )
     );
   }
@@ -122,7 +123,7 @@ class RegisterPage extends StatelessWidget {
                   _firstNameController.text, _lastNamesController.text, _emailController.text, _usernameController.text, _passwordController.text, _repeatPasswordController.text
                 ).then((resultCode) {
                   if (resultCode == 0) {
-                    Navigator.pushNamed(context, "/homeView");
+                    Navigator.pushNamed(context, "/projectsView");
                   }
                 });
               },

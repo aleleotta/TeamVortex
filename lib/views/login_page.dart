@@ -55,7 +55,7 @@ class LoginPage extends StatelessWidget {
                 ),
               ]
             ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
                 errorMessage(context.watch<LoginRegisterViewModel>().errorString), //The error string value comes from the provider.
                 const SizedBox(height: 20),
                 ElevatedButton(
@@ -64,7 +64,7 @@ class LoginPage extends StatelessWidget {
                       _usernameEmailController.text, _passwordController.text
                     ).then((resultCode) {
                       if (resultCode == 0) {
-                        Navigator.pushNamed(context, "/homeView");
+                        Navigator.pushNamed(context, "/projectsView");
                       }
                     });
                   },

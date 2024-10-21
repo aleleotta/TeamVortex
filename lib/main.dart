@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teamvortex/firebase_options.dart';
 import 'package:teamvortex/viewmodels/login_register_vm.dart';
-import 'package:teamvortex/views/home_page.dart';
+import 'package:teamvortex/viewmodels/projects_vm.dart';
+import 'package:teamvortex/views/projects_page.dart';
 import 'package:teamvortex/views/login_page.dart';
 import 'package:teamvortex/views/register_page.dart';
 import 'package:teamvortex/views/welcome_page.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LoginRegisterViewModel()),
+        ChangeNotifierProvider(create: (context) => ProjectsViewModel()),
       ],
       child: MaterialApp(
       title: 'Flutter Demo',
@@ -30,12 +32,13 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const WelcomePage(),
+      //home: const WelcomePage(),
+      home: const ProjectsPage(), //TEST
       
       // View router for navigation
       routes: {
         "/welcomeView": (context) => const WelcomePage(),
-        "/homeView": (context) => const HomePage(),
+        "/projectsView": (context) => const ProjectsPage(),
         "/loginView": (context) => LoginPage(),
         "/registerView": (context) => RegisterPage(),
       },
