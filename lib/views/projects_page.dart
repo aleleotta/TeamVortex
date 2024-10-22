@@ -18,18 +18,18 @@ class ProjectsPage extends StatelessWidget {
   }
 
   Widget _projectsView(BuildContext context, double screenWidth, double screenHeight) {
-    return Stack(
-      children: <Widget>[
-        Scaffold(
-          appBar: AppBar(
-            title: const Text("Projects"),
-            backgroundColor: Colors.blue,
-            automaticallyImplyLeading: true,
-          ),
-          drawer: drawerOptions(context),
-          body: Padding(
-            padding: const EdgeInsets.all(5),
-            child: Center(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Projects"),
+        backgroundColor: Colors.blue,
+        automaticallyImplyLeading: true,
+      ),
+      drawer: drawerOptions(context),
+      body: Padding(
+        padding: const EdgeInsets.all(5),
+        child: Stack(
+          children: <Widget>[
+            Center(
               child: ListView(
                 children: <Widget>[
                   projectCard("Project 1", "Description 1", "Creator 1", DateTime.now().day, DateTime.now().month, DateTime.now().year),
@@ -42,28 +42,28 @@ class ProjectsPage extends StatelessWidget {
                   projectCard("Project 8", "Description 8", "Creator 8", DateTime.now().day, DateTime.now().month, DateTime.now().year),
                 ]
               ),
-            )
-          ),
-          bottomNavigationBar: navigationBar(context),
-        ),
-        Visibility(
-          visible: context.watch<ProjectsViewModel>().showAddButton,
-          child: Positioned(
-            right: 20,
-            bottom: 100,
-            child: ElevatedButton(
-              onPressed: () {
-                
-              },
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                padding: const EdgeInsets.all(15),
-              ),
-              child: const Icon(Icons.add, size: 40),
-            )
-          )
-        ),
-      ]
+            ),
+            Visibility(
+              visible: context.watch<ProjectsViewModel>().showAddButton,
+              child: Positioned(
+                right: 10,
+                bottom: 25,
+                child: ElevatedButton(
+                  onPressed: () {
+                    
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const CircleBorder(),
+                    padding: const EdgeInsets.all(13),
+                  ),
+                  child: const Icon(Icons.add, size: 40),
+                )
+              )
+            ),
+          ]
+        )
+      ),
+      bottomNavigationBar: navigationBar(context),
     );
   }
 
