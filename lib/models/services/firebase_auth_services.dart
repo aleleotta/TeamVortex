@@ -36,4 +36,6 @@ class FirebaseAuthServices {
     }
     return resultCode;
   }
+
+  Future<String?> getCurrentUsername() async => _auth.currentUser?.displayName;
 }

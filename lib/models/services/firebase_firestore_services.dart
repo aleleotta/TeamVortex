@@ -21,7 +21,7 @@ class FirebaseFirestoreServices {
   Future<int> registerCredentials(String email, String username, String firstName, String lastNames) async {
     int statusCode = 0;
     try {
-      await _firestore.collection("users").add({
+      await _firestore.collection("users").add(<String, dynamic>{
         "email": email,
         "username": username,
         "firstName": firstName,
@@ -32,5 +32,20 @@ class FirebaseFirestoreServices {
       statusCode = -1;
     }
     return statusCode;
+  }
+
+  Future<String> getUserReference(String username) async {
+    QuerySnapshot<Map<String, dynamic>>? querySnapshot;
+    try {
+      querySnapshot = await _firestore.collection("users").where("username", isEqualTo: username).limit(1).get();
+      if (querySnapshot.docs.isEmpty) {
+        return "";
+      } else {
+        return querySnapshot.docs[0].id;
+      }
+    }
+    catch (err) {
+      return "";
+    }
   }
 }

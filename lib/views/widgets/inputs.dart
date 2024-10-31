@@ -3,11 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:teamvortex/models/entities/Project.dart';
 import 'package:teamvortex/viewmodels/nav_bar_vm.dart';
 
-Widget inputField(String? labelName, {bool isPassword = false, TextEditingController? controller, double maxWidth = 200}) {
+Widget inputFieldWithHoveringLabel(String? labelName, {bool isPassword = false,
+TextEditingController? controller, double maxWidth = 200, int maxLines = 1}) {
   return SizedBox(
     width: maxWidth,
     child: Center(
       child: TextField(
+        maxLines: maxLines,
         controller: controller,
         decoration: InputDecoration(
           labelText: labelName,
@@ -16,6 +18,27 @@ Widget inputField(String? labelName, {bool isPassword = false, TextEditingContro
         obscureText: isPassword,
       ),
     )
+  );
+}
+
+Widget inputFieldWithLabel(String labelName, {bool isPassword = false,
+TextEditingController? controller, double maxWidth = 200, int maxLines = 1}) {
+  return Column(
+    children: <Widget>[
+      Text(labelName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+      const SizedBox(height: 5),
+      SizedBox(
+        width: maxWidth,
+        child: TextField(
+          maxLines: maxLines,
+          obscureText: isPassword,
+          controller: controller,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+          ),
+        )
+      )
+    ]
   );
 }
 
@@ -77,7 +100,10 @@ NavigationBar navigationBar(BuildContext context) {
   );
 }
 
-Widget projectCard(String title, String description, String creatorRef, int day, int month, int year) {
+Widget projectCard({required Project project}) {
+  int day = project.creationDate.day;
+  int month = project.creationDate.month;
+  int year = project.creationDate.year;
   return Column(
     children: <SizedBox>[
       SizedBox(
@@ -91,7 +117,7 @@ Widget projectCard(String title, String description, String creatorRef, int day,
                 top: 10,
                 left: 10,
                 child: Text(
-                  title,
+                  project.title,
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold
@@ -102,7 +128,7 @@ Widget projectCard(String title, String description, String creatorRef, int day,
                 top: 55,
                 left: 10,
                 child: Text(
-                  description
+                  project.description
                 ),
               ),
               Positioned(
@@ -118,7 +144,7 @@ Widget projectCard(String title, String description, String creatorRef, int day,
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      creatorRef,
+                      project.creatorUsername,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),

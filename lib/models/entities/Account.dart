@@ -1,40 +1,34 @@
 // ignore_for_file: file_names
 
+import 'package:firebase_auth/firebase_auth.dart';
+
 class Account {
   //Attributes
   String _firstName = "";
   String _lastNames = "";
-  String _username = "";
-  String _email = "";
-  String _password = "";
+  User? _user;
 
   //Properties
   String get firstName => _firstName;
   String get lastNames => _lastNames;
-  String get username => _username;
-  String get email => _email;
-  String get password => _password;
+  User? get user => _user;
 
   //Constructors
   Account();
 
-  Account.defineAttributesWithNames(String firstName, String lastNames, String email, String username, String password) {
+  Account.defineAttributesWithNames(String firstName, String lastNames, User? user) {
+    _user = user;
     _firstName = firstName;
     _lastNames = lastNames;
-    _email = email;
-    _username = username;
-    _password = password;
   }
 
-  Account.defineAttributes(String email, String username, String password) {
-    _email = email;
-    _username = username;
-    _password = password;
+  Account.defineUserOnly(User? user) {
+    _user = user;
   }
 
   Account.copyAttributes(Account account) {
-    _email = account.email;
-    _username = account.username;
-    _password = account.password;
+    _user = account.user;
+    _firstName = account.firstName;
+    _lastNames = account.lastNames;
   }
 }

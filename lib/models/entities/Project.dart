@@ -8,6 +8,7 @@ class Project {
   String _creatorRef = "";
   String _creatorUsername = "";
   DateTime _creationDate = DateTime.now();
+  List<dynamic> _members = [];
 
   // Getters
   String get docId => _docId;
@@ -16,23 +17,25 @@ class Project {
   String get creatorRef => _creatorRef;
   String get creatorUsername => _creatorUsername;
   DateTime get creationDate => _creationDate;
+  List<dynamic> get members => _members;
 
   // Setters
   set title(String title) {
-    if (title.length >= 3) {
-      _title = title;
-    }
+    _title = title;
   }
   set description(String description) => _description = description;
 
   // Constructors
-  Project({String docId = "", required String title, String description = "", required creatorRef, required creatorUsername, required creationDate}) {
+  Project({String docId = "", required String title, String description = "",
+  required creatorRef, required creatorUsername, required creationDate, required members}) {
     _docId = docId;
     if (title.length >= 3) {
       _title = title;
     }
     _description = description;
     _creatorRef = creatorRef;
+    _creatorUsername = creatorUsername;
     _creationDate = creationDate;
+    _members = members;
   }
 }

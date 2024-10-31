@@ -40,11 +40,11 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)
                 ),
                 const SizedBox(height: 40),
-                inputField("Username/Email", controller: _usernameEmailController, maxWidth: 250),
+                inputFieldWithHoveringLabel("Username/Email", controller: _usernameEmailController, maxWidth: 250),
                 const SizedBox(height: 20),
                 Stack(
               children: <Widget>[
-                inputField("Password", maxWidth: 250, controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
+                inputFieldWithHoveringLabel("Password", maxWidth: 250, controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
                 Positioned(
                   right: 0,
                   child: IconButton(

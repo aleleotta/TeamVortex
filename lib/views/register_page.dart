@@ -79,17 +79,17 @@ class RegisterPage extends StatelessWidget {
               )
             ),
             const SizedBox(height: 20),
-            inputField("First name", controller: _firstNameController, maxWidth: 250),
+            inputFieldWithHoveringLabel("First name", controller: _firstNameController, maxWidth: 250),
             const SizedBox(height: 20),
-            inputField("Last names", controller: _lastNamesController, maxWidth: 250),
+            inputFieldWithHoveringLabel("Last names", controller: _lastNamesController, maxWidth: 250),
             const SizedBox(height: 20),
-            inputField("Email", controller: _emailController, maxWidth: 250),
+            inputFieldWithHoveringLabel("Email", controller: _emailController, maxWidth: 250),
             const SizedBox(height: 20),
-            inputField("Username", controller: _usernameController, maxWidth: 250),
+            inputFieldWithHoveringLabel("Username", controller: _usernameController, maxWidth: 250),
             const SizedBox(height: 20),
             Stack(
               children: <Widget>[
-                inputField("Password", maxWidth: 250, controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
+                inputFieldWithHoveringLabel("Password", maxWidth: 250, controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
                 Positioned(
                   right: 0,
                   child: IconButton(
@@ -103,7 +103,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 20),
             Stack(
               children: <Widget>[
-                inputField("Repeat password", maxWidth: 250, controller: _repeatPasswordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
+                inputFieldWithHoveringLabel("Repeat password", maxWidth: 250, controller: _repeatPasswordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
                 Positioned(
                   right: 0,
                   child: IconButton(
