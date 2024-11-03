@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teamvortex/models/entities/Project.dart';
 import 'package:teamvortex/viewmodels/projects_vm.dart';
 import 'package:teamvortex/views/widgets/inputs.dart';
 
@@ -34,7 +33,7 @@ class ProjectsPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: context.watch<ProjectsViewModel>().projects.length,
                 itemBuilder: (context, index) {
-                  return projectCard(project: context.watch<ProjectsViewModel>().projects[index]);
+                  return projectCard(context, project: context.watch<ProjectsViewModel>().projects[index]);
                 }
               ),
             ),

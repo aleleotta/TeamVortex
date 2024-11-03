@@ -14,7 +14,14 @@ class CreateProjectViewModel extends ChangeNotifier {
       if (title.isEmpty || description.isEmpty) {
         errorMessage = "All fields need to be filled in.";
         statusCode = -1;
-      } else {
+      } else if (title.length > 22 || title.length < 3) {
+        errorMessage = "The title length should be between 3 and 22 characters.";
+        statusCode = -1;
+      } else if (description.length > 85 || description.length < 3) {
+        errorMessage = "The description length should be between 3 and 85 characters.";
+        statusCode = -1;
+      }
+      else {
         String? username = await FirebaseAuthServices().getCurrentUsername();
         String? userReference = await FirebaseFirestoreServices().getUserReference(username!);
         if (username.isNotEmpty && userReference.isNotEmpty) {

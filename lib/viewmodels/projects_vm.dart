@@ -1,7 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:teamvortex/models/entities/Project.dart';
-import 'package:teamvortex/models/services/firebase_auth_services.dart';
 import 'package:teamvortex/models/services/firestore_extensions/firestore_projects.dart';
 
 class ProjectsViewModel extends ChangeNotifier {
@@ -15,18 +13,12 @@ class ProjectsViewModel extends ChangeNotifier {
     } catch (err) {
       return null;
     }
+    notifyListeners();
   }
 
-  /*Future<int> createProject(Project project) async {
-    int statusCode = 0;
-    try {
-      statusCode = await FirestoreProjects().createProject(project);
-    } catch (err) {
-      statusCode = -1;
-      return statusCode;
-    }
-    return statusCode;
-  }*/
+  void clearProjectsList() {
+    _projects.clear();
+  }
 
   ProjectsViewModel() {
     getProjects();

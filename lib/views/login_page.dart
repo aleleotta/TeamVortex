@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teamvortex/viewmodels/login_register_vm.dart';
+import 'package:teamvortex/viewmodels/projects_vm.dart';
 import 'package:teamvortex/views/widgets/inputs.dart';
 
 class LoginPage extends StatelessWidget {
@@ -64,6 +65,7 @@ class LoginPage extends StatelessWidget {
                       _usernameEmailController.text, _passwordController.text
                     ).then((resultCode) {
                       if (resultCode == 0) {
+                        context.read<ProjectsViewModel>().getProjects();
                         Navigator.pushNamed(context, "/projectsView");
                       }
                     });

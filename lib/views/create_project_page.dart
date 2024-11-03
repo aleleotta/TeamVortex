@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teamvortex/viewmodels/create_project_vm.dart';
+import 'package:teamvortex/viewmodels/projects_vm.dart';
 import 'package:teamvortex/views/widgets/inputs.dart';
 
 class CreateProjectPage extends StatelessWidget {
@@ -47,9 +48,14 @@ class CreateProjectPage extends StatelessWidget {
                   errorMessage(context.watch<CreateProjectViewModel>().errorMessage),
                   const SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () {
-                      context.read<CreateProjectViewModel>().createNewProject(_titleController.text, _descriptionController.text);
-                      Navigator.pop(context);
+                    onPressed: () async {
+                      await context.read<CreateProjectViewModel>().createNewProject(_titleController.text, _descriptionController.text)
+                      .then((resultCode) {
+                        if (resultCode == 0) {
+                          context.read<ProjectsViewModel>().getProjects();
+                          Navigator.pop(context);
+                        }
+                      });
                     },
                     child: const Text("Create"),
                   ),

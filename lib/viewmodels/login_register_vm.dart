@@ -66,8 +66,8 @@ class LoginRegisterViewModel extends ChangeNotifier {
     return resultCode; // Gets returned to the UI to know whether to nagivate to the home menu or not.
   }
 
-  // This function will check if the account information is correct.
-  // If all data is valid, _registerAccountIntoFirebase() will be called.
+  /// This function will check if the account information is correct.
+  /// If all data is valid, _registerAccountIntoFirebase() will be called.
   Future<int> checkInfoRegister(String firstName, String lastName, String email, String username, String password, String repeatPassword) async {
     int resultCode = 0;
     if (firstName.isEmpty || lastName.isEmpty || email.isEmpty || username.isEmpty || password.isEmpty || repeatPassword.isEmpty) {
