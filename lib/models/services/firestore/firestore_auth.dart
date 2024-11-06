@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FirebaseFirestoreServices {
+class FirestoreAuth {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String?> loginWithUsername(String username) async {
@@ -32,20 +32,5 @@ class FirebaseFirestoreServices {
       statusCode = -1;
     }
     return statusCode;
-  }
-
-  Future<String> getUserReference(String username) async {
-    QuerySnapshot<Map<String, dynamic>>? querySnapshot;
-    try {
-      querySnapshot = await _firestore.collection("users").where("username", isEqualTo: username).limit(1).get();
-      if (querySnapshot.docs.isEmpty) {
-        return "";
-      } else {
-        return querySnapshot.docs[0].id;
-      }
-    }
-    catch (err) {
-      return "";
-    }
   }
 }

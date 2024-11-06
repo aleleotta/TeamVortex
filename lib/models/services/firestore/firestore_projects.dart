@@ -28,7 +28,7 @@ class FirestoreProjects {
     QuerySnapshot<Map<String, dynamic>>? querySnapshot;
     try {
       querySnapshot = await _firestore
-      .collection("projects")  // Keep an eye on this code. Can't trust it.
+      .collection("projects")
       .where("members", arrayContains: await FirebaseAuthServices().instance.currentUser!.displayName)
       .get();
       for (var doc in querySnapshot.docs) {

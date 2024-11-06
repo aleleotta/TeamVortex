@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:teamvortex/models/entities/Project.dart';
 import 'package:teamvortex/models/services/firebase_auth_services.dart';
 import 'package:teamvortex/viewmodels/nav_bar_vm.dart';
-import 'package:teamvortex/viewmodels/project_overview_vm.dart';
+import 'package:teamvortex/viewmodels/project_feed_vm.dart';
 import 'package:teamvortex/viewmodels/projects_vm.dart';
 
 Widget inputFieldWithHoveringLabel(String? labelName, {bool isPassword = false,
@@ -71,7 +71,7 @@ Drawer drawerOptions(BuildContext context) {
             FirebaseAuthServices().signOut();
             context.read<NavBarViewModel>().selectedIndex = 0;
             context.read<ProjectsViewModel>().clearProjectsList();
-            context.read<ProjectOverviewViewModel>().clearSelectedProject();
+            context.read<ProjectFeedViewModel>().clearSelectedProject();
             Navigator.pushReplacementNamed(context, "/welcomeView");
           },
         ),
@@ -82,6 +82,7 @@ Drawer drawerOptions(BuildContext context) {
 
 NavigationBar navigationBar(BuildContext context) {
   return NavigationBar(
+    height: 70,
     backgroundColor: Colors.blue,
     selectedIndex: context.watch<NavBarViewModel>().selectedIndex,
     destinations: const [
@@ -105,6 +106,32 @@ NavigationBar navigationBar(BuildContext context) {
   );
 }
 
+NavigationBar navigationBarInsideProject(BuildContext context) {
+  return NavigationBar(
+    height: 70,
+    backgroundColor: Colors.blue,
+    selectedIndex: context.watch<NavBarViewModel>().selectedIndex,
+    destinations: const [
+      NavigationDestination(
+        icon: Icon(Icons.featured_play_list),
+        label: "Feed",
+      ),
+      NavigationDestination(
+        icon: Icon(Icons.notes),
+        label: "Notes",
+      ),
+    ],
+    onDestinationSelected: (int index) {
+      if (index == 0) {
+        Navigator.pushReplacementNamed(context, "/projectFeedView");
+      } else if (index == 1) {
+        Navigator.pushReplacementNamed(context, "/projectNotesView");
+      }
+      context.read<NavBarViewModel>().selectedIndex = index;
+    },
+  );
+}
+
 Widget projectCard(BuildContext context, {required Project project}) {
   int day = project.creationDate.day;
   int month = project.creationDate.month;
@@ -115,8 +142,8 @@ Widget projectCard(BuildContext context, {required Project project}) {
         height: 150,
         child: GestureDetector(
           onTap: () {
-            context.read<ProjectOverviewViewModel>().setSelectedProject(project);
-            Navigator.pushNamed(context, "/projectOverviewView");
+            context.read<ProjectFeedViewModel>().setSelectedProject(project);
+            Navigator.pushNamed(context, "/projectFeedView");
           },
           child: Card(
             color: Colors.grey[350],

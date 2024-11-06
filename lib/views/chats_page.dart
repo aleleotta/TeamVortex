@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:teamvortex/views/widgets/inputs.dart';
 
 class ChatsView extends StatelessWidget {
@@ -17,6 +16,8 @@ class ChatsView extends StatelessWidget {
   }
 
   Widget _messagesViewTabletOrPC(BuildContext context, double screenWidth, double screenHeight) {
+    double firstViewWidth = screenWidth * 0.3;
+    double secondViewWidth = screenWidth * 0.7;
     return Scaffold(
       bottomNavigationBar: navigationBar(context),
       appBar: AppBar(
@@ -26,18 +27,18 @@ class ChatsView extends StatelessWidget {
       ),
       drawer: drawerOptions(context),
       body: Row(
-        children: <SizedBox>[
+        children: <Widget>[
           SizedBox(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width * 0.3,
+            height: screenHeight,
+            width: screenWidth * 0.3,
             child: Container(
               color: Colors.yellow,
             )
           ),
           SizedBox(
             child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width * 0.7,
+              height: screenHeight,
+              width: screenWidth * 0.7,
               color: Colors.blue[800],
             )
           )
@@ -47,7 +48,7 @@ class ChatsView extends StatelessWidget {
   }
 
   Widget _messagesViewPhone(BuildContext context, double screenWidth, double screenHeight) {
-    return Container();
+    return const Scaffold();
   }
 
 }

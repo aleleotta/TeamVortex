@@ -6,11 +6,24 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[800],
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return _welcomeView(context, constraints.maxWidth, constraints.maxHeight);
-        }
+      //backgroundColor: Colors.blue[800],
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromARGB(255, 29, 135, 255),
+              Color.fromARGB(255, 17, 79, 141),
+              Color.fromARGB(255, 13, 63, 105),
+            ],
+          ),
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return _welcomeView(context, constraints.maxWidth, constraints.maxHeight);
+          }
+        ),
       )
     );
   }

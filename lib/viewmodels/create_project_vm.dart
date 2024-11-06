@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:teamvortex/models/entities/Project.dart';
 import 'package:teamvortex/models/services/firebase_auth_services.dart';
-import 'package:teamvortex/models/services/firebase_firestore_services.dart';
-import 'package:teamvortex/models/services/firestore_extensions/firestore_projects.dart';
+import 'package:teamvortex/models/services/firestore/firestore_auth.dart';
+import 'package:teamvortex/models/services/firestore/firestore_projects.dart';
 
 class CreateProjectViewModel extends ChangeNotifier {
   Project? _project;
@@ -23,8 +24,8 @@ class CreateProjectViewModel extends ChangeNotifier {
       }
       else {
         String? username = await FirebaseAuthServices().getCurrentUsername();
-        String? userReference = await FirebaseFirestoreServices().getUserReference(username!);
-        if (username.isNotEmpty && userReference.isNotEmpty) {
+        String userReference = FirebaseAuth.instance.currentUser!.uid;
+        if (username!.isNotEmpty && userReference.isNotEmpty) {
           _project = Project(
             title: title,
             description: description,

@@ -40,15 +40,15 @@ class RegisterPage extends StatelessWidget {
               child: Visibility(
                 visible: false,
                 child: IconButton( // Disabled
-                onPressed: () {
-                  _scrollController.animateTo(
-                      _scrollController.position.maxScrollExtent,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.fastOutSlowIn
-                  );
-                },
-                icon: const Icon(Icons.arrow_downward_rounded, size: 35),
-              ),
+                  onPressed: () {
+                    _scrollController.animateTo(
+                        _scrollController.position.maxScrollExtent,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.fastOutSlowIn
+                    );
+                  },
+                  icon: const Icon(Icons.arrow_downward_rounded, size: 35),
+                ),
               )
             ),
             ]
@@ -93,10 +93,11 @@ class RegisterPage extends StatelessWidget {
                 Positioned(
                   right: 0,
                   child: IconButton(
-                  onPressed: () {
-                    context.read<LoginRegisterViewModel>().passwordVisible = !context.read<LoginRegisterViewModel>().passwordVisible;
-                  },
-                  icon: context.watch<LoginRegisterViewModel>().passwordIcon)
+                    onPressed: () {
+                      context.read<LoginRegisterViewModel>().passwordVisible = !context.read<LoginRegisterViewModel>().passwordVisible;
+                    },
+                    icon: context.watch<LoginRegisterViewModel>().passwordIcon
+                  )
                 ),
               ]
             ),

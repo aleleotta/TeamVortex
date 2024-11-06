@@ -26,7 +26,7 @@ class Project {
   set description(String description) => _description = description;
 
   // Constructors
-  Project({String docId = "", required String title, String description = "",
+  Project({docId = "", required title, description = "",
   required creatorRef, required creatorUsername, required creationDate, required members}) {
     _docId = docId;
     if (title.length >= 3) {

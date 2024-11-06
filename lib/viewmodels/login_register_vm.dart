@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:teamvortex/models/services/firebase_firestore_services.dart';
+import 'package:teamvortex/models/services/firestore/firestore_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:teamvortex/models/services/firebase_auth_services.dart';
 
@@ -46,7 +46,7 @@ class LoginRegisterViewModel extends ChangeNotifier {
       }
     }
     else if (isUsername) {
-      String? receivedEmail = await FirebaseFirestoreServices().loginWithUsername(emailOrUsername);
+      String? receivedEmail = await FirestoreAuth().loginWithUsername(emailOrUsername);
       if (receivedEmail == null) {
         errorString = "The username was not found.";
         resultCode = -1;
@@ -92,7 +92,7 @@ class LoginRegisterViewModel extends ChangeNotifier {
         errorString = "An internal error has occured.";
         resultCode = -1;
       } else {
-        resultCode = await FirebaseFirestoreServices().registerCredentials(email, username, firstName, lastName);
+        resultCode = await FirestoreAuth().registerCredentials(email, username, firstName, lastName);
       }
     }
     if (resultCode == 0) {
