@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:teamvortex/models/entities/Message.dart';
 import 'package:teamvortex/models/entities/Project.dart';
+import 'package:teamvortex/models/services/firestore/firestore_projects.dart';
 import 'package:teamvortex/models/services/firestore/firestore_user_project_feed.dart';
+import 'package:teamvortex/viewmodels/projects_vm.dart';
 
 class ProjectFeedViewModel extends ChangeNotifier {
   Project? _selectedProject;
@@ -21,6 +23,17 @@ class ProjectFeedViewModel extends ChangeNotifier {
 
   void clearSelectedProject() {
     _selectedProject = null;
+  }
+
+  Future<int> deleteProject(context) async {
+    int statusCode = 0;
+    try {
+      statusCode = await FirestoreProjects().deleteProject(_selectedProject!.docId);
+      _selectedProject = null;
+    } catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
   }
 
   Future<int> sendMessage(String messageString) async {

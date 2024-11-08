@@ -50,4 +50,15 @@ class FirestoreProjects {
     }
     return projects;
   }
+
+  Future<int> deleteProject(String docId) async {
+    int statusCode = 0;
+    try {
+      await _firestore.collection("projects").doc(docId).delete();
+    }
+    catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
+  }
 }

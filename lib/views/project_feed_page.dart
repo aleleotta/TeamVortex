@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teamvortex/models/entities/Message.dart';
 import 'package:teamvortex/viewmodels/project_feed_vm.dart';
+import 'package:teamvortex/viewmodels/projects_vm.dart';
 import 'package:teamvortex/views/widgets/inputs.dart';
 import 'package:intl/intl.dart';
 
@@ -32,8 +33,50 @@ class ProjectFeedPage extends StatelessWidget {
           PopupMenuButton(
             icon: const Icon(Icons.more_vert),
             itemBuilder: (context) => [
-              const PopupMenuItem(value: "Leave Project", child: Text("Add member")),
-              const PopupMenuItem(value: "Delete Project", child: Text("Delete Project"))
+              PopupMenuItem(
+                child: const Text("Add Member"),
+                onTap: () {}
+              ),
+              PopupMenuItem(
+                child: const Text("Delete Project"),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text("Delete Project"),
+                        content: const Text("Are you sure you want to delete this project?"),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10)
+                          )
+                        ),
+                        actions: [
+                          TextButton(
+                            child: const Text("Cancel"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child: const Text("Delete"),
+                            onPressed: () async {
+                              await context.read<ProjectFeedViewModel>().deleteProject(context)
+                              .then((statusCode) {
+                                if (statusCode == 0) {
+                                  context.read<ProjectsViewModel>().clearProjectsList();
+                                  context.read<ProjectsViewModel>().getProjects();
+                                  Navigator.pushReplacementNamed(context, "/projectsView");
+                                }
+                              });
+                            },
+                          ),
+                        ]
+                      );
+                    }
+                  );
+                }
+              )
             ]
           )
         ]
@@ -45,7 +88,7 @@ class ProjectFeedPage extends StatelessWidget {
             children: <Widget>[
               Container(
                 width: 1000,
-                height: screenHeight - 230,
+                height: screenHeight - 240,
                 decoration: BoxDecoration(
                   color: Colors.cyan[200],
                   border: Border.all(
@@ -142,7 +185,7 @@ class ProjectFeedPage extends StatelessWidget {
   }
 
   Widget _messageItem(BuildContext context, Message message) {
-    String time = DateFormat("hh:mm").format(message.timestamp.toDate());
+    String time = DateFormat("hh:mm a").format(message.timestamp.toDate());
     double messageWidth = MediaQuery.of(context).size.width * 0.7;
     double messageHeight = 50 + (message.messageString.length / 05);
     return Container(

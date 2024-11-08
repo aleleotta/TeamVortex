@@ -10,12 +10,12 @@ class WelcomePage extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             colors: [
               Color.fromARGB(255, 29, 135, 255),
               Color.fromARGB(255, 17, 79, 141),
-              Color.fromARGB(255, 13, 63, 105),
+              Color.fromARGB(255, 8, 39, 64),
             ],
           ),
         ),

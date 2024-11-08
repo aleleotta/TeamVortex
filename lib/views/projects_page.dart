@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teamvortex/viewmodels/projects_vm.dart';
@@ -33,6 +35,10 @@ class ProjectsPage extends StatelessWidget {
               child: ListView.builder(
                 itemCount: context.watch<ProjectsViewModel>().projects.length,
                 itemBuilder: (context, index) {
+                  // OutOfRange conditional
+                  if (index >= context.watch<ProjectsViewModel>().projects.length) {
+                    return projectCard(context, project: context.watch<ProjectsViewModel>().projects[index-1]);
+                  }
                   return projectCard(context, project: context.watch<ProjectsViewModel>().projects[index]);
                 }
               ),

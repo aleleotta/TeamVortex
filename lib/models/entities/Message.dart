@@ -26,6 +26,7 @@ class Message {
     required this.timestamp}
   );
 
+  // Methods
   /// Converts a Message object to a map.
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
