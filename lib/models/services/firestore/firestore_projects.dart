@@ -59,12 +59,23 @@ class FirestoreProjects {
       if (statusCode2 == -2) {
         statusCode = -2;
       } else {
-        await _firestore
+        DocumentSnapshot<Map<String, dynamic>> project = await _firestore
         .collection("projects")
         .doc(docId)
-        .update({
-          "members": FieldValue.arrayUnion([username])
-        });
+        .get();
+        for (String member in project.data()!["members"]) {
+          if (member == username) {
+            statusCode = -3;
+          }
+        }
+        if (statusCode == 0) {
+          await _firestore
+          .collection("projects")
+          .doc(docId)
+          .update({
+            "members": FieldValue.arrayUnion([username])
+          });
+        } 
       }
     }
     catch (err) {

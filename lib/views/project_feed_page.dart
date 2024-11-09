@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:teamvortex/models/entities/Message.dart';
 import 'package:teamvortex/viewmodels/project_feed_vm.dart';
@@ -72,11 +71,17 @@ class ProjectFeedPage extends StatelessWidget {
                               .then((statusCode) {
                                 if (statusCode == 0) {
                                   Navigator.pop(context);
-                                  Fluttertoast.showToast(msg: "Member added successfully");
+                                  SnackBar snackBar = const SnackBar(content: Text("Member added successfully.",), backgroundColor: Colors.green);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                 } else if (statusCode == -1) {
-                                  Fluttertoast.showToast(msg: "Member could not be added", textColor: Colors.red);
+                                  SnackBar snackBar = const SnackBar(content: Text("Error adding member."), backgroundColor: Colors.red);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                 } else if (statusCode == -2) {
-                                  Fluttertoast.showToast(msg: "User does not exist", textColor: Colors.red);
+                                  SnackBar snackBar = const SnackBar(content: Text("User does not exist."), backgroundColor: Colors.red);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                } else if (statusCode == -3) {
+                                  SnackBar snackBar = const SnackBar(content: Text("User already forms part of this project."), backgroundColor: Colors.red);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                 }
                               });
                             },
