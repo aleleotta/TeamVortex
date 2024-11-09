@@ -51,6 +51,47 @@ class FirestoreProjects {
     return projects;
   }
 
+  ///Adds user to indicated project
+  Future<int> addUserToProject(String docId, String username) async {
+    int statusCode = 0;
+    try {
+      int statusCode2 = await findUser(username);
+      if (statusCode2 == -2) {
+        statusCode = -2;
+      } else {
+        await _firestore
+        .collection("projects")
+        .doc(docId)
+        .update({
+          "members": FieldValue.arrayUnion([username])
+        });
+      }
+    }
+    catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
+  }
+
+  ///Checks if user exists
+  Future<int> findUser(String username) async {
+    int statusCode = 0;
+    QuerySnapshot<Map<String, dynamic>>? querySnapshot;
+    try {
+      querySnapshot = await _firestore
+      .collection("users")
+      .where("username", isEqualTo: username)
+      .get();
+      if (querySnapshot.docs.isEmpty) {
+        statusCode = -2;
+      }
+    }
+    catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
+  }
+
   Future<int> deleteProject(String docId) async {
     int statusCode = 0;
     try {
@@ -61,4 +102,6 @@ class FirestoreProjects {
     }
     return statusCode;
   }
+
+  
 }

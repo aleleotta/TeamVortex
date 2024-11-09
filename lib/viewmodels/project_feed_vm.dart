@@ -6,7 +6,6 @@ import 'package:teamvortex/models/entities/Message.dart';
 import 'package:teamvortex/models/entities/Project.dart';
 import 'package:teamvortex/models/services/firestore/firestore_projects.dart';
 import 'package:teamvortex/models/services/firestore/firestore_user_project_feed.dart';
-import 'package:teamvortex/viewmodels/projects_vm.dart';
 
 class ProjectFeedViewModel extends ChangeNotifier {
   Project? _selectedProject;
@@ -23,6 +22,16 @@ class ProjectFeedViewModel extends ChangeNotifier {
 
   void clearSelectedProject() {
     _selectedProject = null;
+  }
+
+  Future<int> addUserToProject(String username) async {
+    int statusCode = 0;
+    try {
+      statusCode = await FirestoreProjects().addUserToProject(_selectedProject!.docId, username);
+    } catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
   }
 
   Future<int> deleteProject(context) async {

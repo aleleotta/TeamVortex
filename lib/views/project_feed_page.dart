@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:teamvortex/models/entities/Message.dart';
 import 'package:teamvortex/viewmodels/project_feed_vm.dart';
@@ -35,7 +36,56 @@ class ProjectFeedPage extends StatelessWidget {
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: const Text("Add Member"),
-                onTap: () {}
+                onTap: () {
+                  TextEditingController _usernameController = TextEditingController();
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text("Add Member"),
+                        content: SizedBox(
+                          height: 75,
+                          child: Column(
+                            children: <Widget>[
+                              const Text("Specify the username:"),
+                              const SizedBox(height: 5),
+                              inputFieldWithHoveringLabel("", controller: _usernameController),
+                            ],
+                          ),
+                        ),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10)
+                          )
+                        ),
+                        actions: [
+                          TextButton(
+                            child: const Text("Cancel"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child: const Text("Add"),
+                            onPressed: () async {
+                              await context.read<ProjectFeedViewModel>().addUserToProject(_usernameController.text)
+                              .then((statusCode) {
+                                if (statusCode == 0) {
+                                  Navigator.pop(context);
+                                  Fluttertoast.showToast(msg: "Member added successfully");
+                                } else if (statusCode == -1) {
+                                  Fluttertoast.showToast(msg: "Member could not be added", textColor: Colors.red);
+                                } else if (statusCode == -2) {
+                                  Fluttertoast.showToast(msg: "User does not exist", textColor: Colors.red);
+                                }
+                              });
+                            },
+                          ),
+                        ]
+                      );
+                    }
+                  );
+                }
               ),
               PopupMenuItem(
                 child: const Text("Delete Project"),
