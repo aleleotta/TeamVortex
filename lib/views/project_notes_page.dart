@@ -22,8 +22,29 @@ class ProjectNotesPage extends StatelessWidget {
         backgroundColor: Colors.blue,
         automaticallyImplyLeading: true,
       ),
-      body: const Center(
-        child: Text("Project Notes"),
+      body: Padding(
+        padding: const EdgeInsets.all(5),
+        child: Stack(
+          children: <Widget>[
+            const Center(
+              // Add project notes here
+            ),
+            Positioned(
+              right: 10,
+              bottom: 25,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/createProjectView');
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(13),
+                ),
+                child: const Icon(Icons.add, size: 40),
+              )
+            )
+          ]
+        )
       ),
       bottomNavigationBar: navigationBarInsideProject(context),
     );

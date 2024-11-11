@@ -143,6 +143,7 @@ Widget projectCard(BuildContext context, {required Project project}) {
         child: GestureDetector(
           onTap: () {
             context.read<ProjectFeedViewModel>().setSelectedProject(project);
+            context.read<NavBarViewModel>().selectedIndex = 0;
             Navigator.pushNamed(context, "/projectFeedView");
           },
           child: Card(
