@@ -4,6 +4,7 @@ import 'package:teamvortex/models/entities/Project.dart';
 import 'package:teamvortex/models/services/firebase_auth_services.dart';
 import 'package:teamvortex/viewmodels/nav_bar_vm.dart';
 import 'package:teamvortex/viewmodels/project_feed_vm.dart';
+import 'package:teamvortex/viewmodels/project_notes_vm.dart';
 import 'package:teamvortex/viewmodels/projects_vm.dart';
 
 Widget inputFieldWithHoveringLabel(String? labelName, {bool isPassword = false,
@@ -143,6 +144,7 @@ Widget projectCard(BuildContext context, {required Project project}) {
         child: GestureDetector(
           onTap: () {
             context.read<ProjectFeedViewModel>().setSelectedProject(project);
+            context.read<ProjectNotesViewModel>().setSelectedProject(project);
             context.read<NavBarViewModel>().selectedIndex = 0;
             Navigator.pushNamed(context, "/projectFeedView");
           },

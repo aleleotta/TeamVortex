@@ -106,6 +106,22 @@ class FirestoreProjects {
   Future<int> deleteProject(String docId) async {
     int statusCode = 0;
     try {
+      await _firestore.collection("feed_messages").where("receiverId", isEqualTo: docId).get() //Delete project feed messages
+      .then(
+        (querySnapshot) {
+          for (var doc in querySnapshot.docs) {
+            _firestore.collection("feed_messages").doc(doc.reference.id).delete();
+          }
+        }
+      );
+      await _firestore.collection("project_notes").where("projectRef", isEqualTo: docId).get() //Delete project notes
+      .then(
+        (querySnapshot) {
+          for (var doc in querySnapshot.docs) {
+            _firestore.collection("project_notes").doc(doc.reference.id).delete();
+          }
+        }
+      );
       await _firestore.collection("projects").doc(docId).delete();
     }
     catch (err) {

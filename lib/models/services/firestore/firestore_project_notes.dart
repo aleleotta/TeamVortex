@@ -28,7 +28,7 @@ class FirestoreProjectNotes {
       .where("projectRef", isEqualTo: projectId)
       .get();
       for (var doc in querySnapshot.docs) {
-        notes.add(ProjectNote.fromMap(doc.data()));
+        notes.add(ProjectNote.fromMap(doc.data(), doc.id));
       }
     }
     catch (err) {

@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           "/projectsView": (context) => const ProjectsPage(),
           "/createProjectView": (context) => CreateProjectPage(),
           "/projectFeedView": (context) => ProjectFeedPage(),
-          "/projectNotesView": (context) => ProjectNotesPage(),
+          "/projectNotesView": (context) => const ProjectNotesPage(),
           "/loginView": (context) => LoginPage(),
           "/registerView": (context) => RegisterPage(),
           "/chatsView": (context) => ChatsView(), //Next task to work on, will follow a similar structure as project feed.
