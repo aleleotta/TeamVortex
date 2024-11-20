@@ -10,6 +10,7 @@ import 'package:teamvortex/models/services/firestore/firestore_user_project_feed
 class ProjectFeedViewModel extends ChangeNotifier {
   Project? _selectedProject;
   Stream<QuerySnapshot>? _messages;
+  bool firstTimeExecution = true;
 
   Project? get selectedProject => _selectedProject;
   Stream<QuerySnapshot>? get messages => _messages;

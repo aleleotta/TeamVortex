@@ -1,46 +1,37 @@
 // ignore_for_file: file_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ChatRoom {
   // Attributes
   final String id;
-  final String title;
-  final String preview;
-  final String recentTimestamp;
-  final List<String> members;
+  final Timestamp creationDate;
+  final List members;
 
   // Getters
   String get getId => id;
-  String get getTitle => title;
-  String get getPreview => preview;
-  String get getRecentTimestamp => recentTimestamp;
-  List<String> get getMembers => members;
+  Timestamp get getCreationDate => creationDate;
+  List get getMembers => members;
 
   // Constructor
   ChatRoom({
     required this.id,
-    required this.title,
-    required this.preview,
-    required this.recentTimestamp,
+    required this.creationDate,
     required this.members
   });
 
   // Methods
   Map<String, dynamic> toMap() {
     return {
-      "id": id,
-      "title": title,
-      "preview": preview,
-      "recentTimestamp": recentTimestamp,
+      "creationDate": creationDate,
       "members": members
     };
   }
 
-  static ChatRoom fromMap(Map<String, dynamic> map) {
+  static ChatRoom fromMap(Map<String, dynamic> map, String docId) {
     return ChatRoom(
-      id: map["id"],
-      title: map["title"],
-      preview: map["preview"],
-      recentTimestamp: map["recentTimestamp"],
+      id: docId,
+      creationDate: map["creationDate"],
       members: map["members"]
     );
   }

@@ -1,4 +1,5 @@
   import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
   import 'package:flutter/foundation.dart';
   import 'package:flutter/material.dart';
   import 'package:provider/provider.dart';
@@ -71,7 +72,10 @@
                                 return const Text("No Messages.");
                               }
                               WidgetsBinding.instance.addPostFrameCallback((_) {
-                                _scrollDown();
+                                if (context.read<ProjectFeedViewModel>().firstTimeExecution == true) {
+                                  _scrollDown();
+                                  context.read<ProjectFeedViewModel>().firstTimeExecution = false;
+                                }
                               });
                               return Column(
                                 children: documents!.map(
@@ -175,6 +179,7 @@
                 if (_messageController.text.isNotEmpty) {
                   context.read<ProjectFeedViewModel>().sendMessage(_messageController.text);
                   _messageController.clear();
+                  _scrollDown();
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -185,54 +190,6 @@
           )
         ]
       );
-      /*return Stack(
-        children: <Widget>[
-          Container(
-            width: 1000,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.cyan[200],
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                color: Colors.black
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: Center(
-                child: TextField(
-                  controller: _messageController,
-                  maxLines: 1,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Send a message",
-                  ),
-                  textInputAction: TextInputAction.send,
-                  onSubmitted: (text) {
-                    if (_messageController.text.isNotEmpty) {
-                      context.read<ProjectFeedViewModel>().sendMessage(text);
-                      _messageController.clear();
-                    }
-                  },
-                )
-              ),
-            )
-          ),
-          Positioned(
-            right: 5,
-            bottom: 4,
-            child: ElevatedButton(
-              onPressed: () async {
-                if (_messageController.text.isNotEmpty) {
-                  await context.read<ProjectFeedViewModel>().sendMessage(_messageController.text);
-                }
-                _messageController.clear();
-              },
-              child: const Icon(Icons.send, size: 20),
-            )
-          )
-        ]
-      );*/
     }
 
     void _scrollDown() {
