@@ -33,4 +33,22 @@ class FirestoreAuth {
     }
     return statusCode;
   }
+
+  Future<int> deleteUser(String email) async {
+    int statusCode = 0;
+    try {
+      await _firestore.collection("users").where("email", isEqualTo: email).get()
+      .then(
+        (querySnapshot) {
+          for (var doc in querySnapshot.docs) {
+            _firestore.collection("users").doc(doc.reference.id).delete();
+          }
+        }
+      );
+    }
+    catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
+  }
 }

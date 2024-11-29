@@ -195,6 +195,51 @@ Widget projectNoteCard(BuildContext context, {required ProjectNote note}) {
                     ]
                   )
                 ),
+                Positioned(
+                  bottom: 30,
+                  right: 10,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("Delete note"),
+                            content: const Text("Are you sure you want to delete this note?"),
+                            actions: [
+                              TextButton(
+                                child: const Text("Cancel"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                }
+                              ),
+                              TextButton(
+                                child: const Text("Delete"),
+                                onPressed: () {
+                                  context.read<ProjectNotesViewModel>().deleteNote(note);
+                                  Navigator.pop(context);
+                                }
+                              )
+                            ]
+                          );
+                        }
+                      );
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          WidgetStateProperty.all(Colors.red),
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
+                    ),
+                    child: const Text(
+                      "Delete",
+                      style: TextStyle(fontSize: 15, color: Colors.white)
+                    ),
+                  )
+                ),
               ]
             ),
           )

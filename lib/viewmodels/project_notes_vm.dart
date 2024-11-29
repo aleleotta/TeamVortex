@@ -13,6 +13,12 @@ class ProjectNotesViewModel extends ChangeNotifier {
   bool get addButtonVisible => _addButtonVisible;
   bool get isCreating => _isCreating;
 
+  void setIsCreating(bool isCreating) {
+    _isCreating = isCreating;
+    _addButtonVisible = !isCreating;
+    notifyListeners();
+  }
+
   void addButtonPressed() {
     _addButtonVisible = false;
     _isCreating = true;
@@ -54,4 +60,18 @@ class ProjectNotesViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<int> deleteNote(ProjectNote note) async {
+    int statusCode = 0;
+    try {
+      statusCode = await FirestoreProjectNotes().deleteNote(note.docId);
+    }
+    catch (err) {
+      statusCode = -1;
+    }
+    if (statusCode == 0) {
+      getNotes();
+    }
+    notifyListeners();
+    return statusCode;
+  }
 }

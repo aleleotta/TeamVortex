@@ -36,4 +36,19 @@ class FirestoreProjectNotes {
     }
     return notes;
   }
+
+  /// Deletes a note from Firestore.
+  Future<int> deleteNote(String noteId) async {
+    int statusCode = 0;
+    try {
+      await _firestore
+      .collection("project_notes")
+      .doc(noteId)
+      .delete();
+    }
+    catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
+  }
 }

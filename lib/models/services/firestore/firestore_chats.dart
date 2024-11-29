@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:teamvortex/models/entities/ChatRoom.dart';
+import 'package:teamvortex/models/entities/Message.dart';
 
 class FirestoreUserChats {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -55,10 +56,67 @@ class FirestoreUserChats {
     return chatRooms;
   }
 
+  Future<int> sendMessage(Message message) async {
+    int statusCode = 0;
+    try {
+      await _firestore.collection("private_messages").add(message.toMap());
+    } catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
+  }
+
+  Stream<QuerySnapshot> getMessages(String chatRoomId) {
+    try {
+      return _firestore
+        .collection("private_messages")
+        .where("receiverId", isEqualTo: chatRoomId)
+        .orderBy("timestamp")
+        .snapshots();
+    }
+    catch (err) {
+      return const Stream.empty();
+    }
+  }
+
   Future<int> deleteChatRoom(String docId) async { //Will be implemented later.
     int statusCode = 0;
     try {
-      
+      _firestore.collection("chat_rooms").doc(docId).delete();
+      _firestore.collection("private_messages").where("receiverId", isEqualTo: docId).get()
+      .then(
+        (querySnapshot) {
+          for (var doc in querySnapshot.docs) {
+            _firestore.collection("private_messages").doc(doc.reference.id).delete();
+          }
+        }
+      );
+    }
+    catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
+  }
+
+  Future<int> deleteAllChatRoomsFromUser(String username) async {
+    int statusCode = 0;
+    try {
+      await _firestore.collection("chat_rooms").where("members", arrayContains: username).get()
+      .then(
+        (querySnapshot) {
+          for (var doc in querySnapshot.docs) {
+            _firestore.collection("chat_rooms").doc(doc.reference.id).delete();
+          }
+        }
+      );
+      await _firestore.collection("private_messages").where("receiverId", isEqualTo: username).get()
+      .then(
+        (querySnapshot) {
+          for (var doc in querySnapshot.docs) {
+            _firestore.collection("private_messages").doc(doc.reference.id).delete();
+          }
+        }
+      );
     }
     catch (err) {
       statusCode = -1;

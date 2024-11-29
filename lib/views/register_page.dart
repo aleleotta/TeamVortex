@@ -61,7 +61,6 @@ class RegisterPage extends StatelessWidget {
   Widget _registerForm(BuildContext context, double screenWidth, double screenHeight) {
     return Container(
     padding: const EdgeInsets.all(16),
-    //height: 430,
     width: 350,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(10),
@@ -91,7 +90,8 @@ class RegisterPage extends StatelessWidget {
               children: <Widget>[
                 inputFieldWithHoveringLabel("Password", maxWidth: 250, controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
                 Positioned(
-                  right: 0,
+                  right: 2,
+                  top: 5,
                   child: IconButton(
                     onPressed: () {
                       context.read<LoginRegisterViewModel>().passwordVisible = !context.read<LoginRegisterViewModel>().passwordVisible;
@@ -106,7 +106,8 @@ class RegisterPage extends StatelessWidget {
               children: <Widget>[
                 inputFieldWithHoveringLabel("Repeat password", maxWidth: 250, controller: _repeatPasswordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
                 Positioned(
-                  right: 0,
+                  right: 2,
+                  top: 5,
                   child: IconButton(
                     onPressed: () {
                       context.read<LoginRegisterViewModel>().passwordVisible = !context.read<LoginRegisterViewModel>().passwordVisible;

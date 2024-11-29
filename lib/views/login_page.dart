@@ -47,7 +47,8 @@ class LoginPage extends StatelessWidget {
               children: <Widget>[
                 inputFieldWithHoveringLabel("Password", maxWidth: 250, controller: _passwordController, isPassword: !context.watch<LoginRegisterViewModel>().passwordVisible),
                 Positioned(
-                  right: 0,
+                  right: 2,
+                  top: 5,
                   child: IconButton(
                   onPressed: () {
                     context.read<LoginRegisterViewModel>().passwordVisible = !context.read<LoginRegisterViewModel>().passwordVisible;

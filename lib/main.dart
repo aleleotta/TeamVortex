@@ -9,6 +9,7 @@ import 'package:teamvortex/viewmodels/nav_bar_vm.dart';
 import 'package:teamvortex/viewmodels/project_feed_vm.dart';
 import 'package:teamvortex/viewmodels/project_notes_vm.dart';
 import 'package:teamvortex/viewmodels/projects_vm.dart';
+import 'package:teamvortex/viewmodels/settings_vm.dart';
 import 'package:teamvortex/views/create_project_page.dart';
 import 'package:teamvortex/views/chats_page.dart';
 import 'package:teamvortex/views/project_feed_page.dart';
@@ -16,6 +17,7 @@ import 'package:teamvortex/views/project_notes_page.dart';
 import 'package:teamvortex/views/projects_page.dart';
 import 'package:teamvortex/views/login_page.dart';
 import 'package:teamvortex/views/register_page.dart';
+import 'package:teamvortex/views/settings_page.dart';
 import 'package:teamvortex/views/welcome_page.dart';
 
 Future<void> main() async {
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CreateProjectViewModel()),
         ChangeNotifierProvider(create: (context) => ProjectFeedViewModel()),
         ChangeNotifierProvider(create: (context) => ProjectNotesViewModel()),
+        ChangeNotifierProvider(create: (context) => SettingsViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -55,9 +58,10 @@ class MyApp extends StatelessWidget {
           "/createProjectView": (context) => CreateProjectPage(),
           "/projectFeedView": (context) => ProjectFeedPage(),
           "/projectNotesView": (context) => const ProjectNotesPage(),
+          "/settingsView": (context) => const SettingsView(),
           "/loginView": (context) => LoginPage(),
           "/registerView": (context) => RegisterPage(),
-          "/chatsView": (context) => ChatsView(), //Next task to work on, will follow a similar structure as project feed.
+          "/chatsView": (context) => ChatsView(),
         },
 
       )

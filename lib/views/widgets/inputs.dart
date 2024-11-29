@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:teamvortex/models/entities/Project.dart';
 import 'package:teamvortex/models/services/firebase_auth_services.dart';
+import 'package:teamvortex/viewmodels/chats_vm.dart';
 import 'package:teamvortex/viewmodels/nav_bar_vm.dart';
 import 'package:teamvortex/viewmodels/project_feed_vm.dart';
 import 'package:teamvortex/viewmodels/project_notes_vm.dart';
@@ -64,6 +66,7 @@ Drawer drawerOptions(BuildContext context) {
         ListTile(
           title: const Text("Settings"),
           onTap: () {
+            Navigator.pushNamed(context, "/settingsView");
           },
         ),
         ListTile(
@@ -73,7 +76,9 @@ Drawer drawerOptions(BuildContext context) {
             context.read<NavBarViewModel>().selectedIndex = 0;
             context.read<ProjectsViewModel>().clearProjectsList();
             context.read<ProjectFeedViewModel>().clearSelectedProject();
-            Navigator.pushReplacementNamed(context, "/welcomeView");
+            context.read<ChatsViewModel>().clearChatRoomsList();
+            context.read<ChatsViewModel>().chatViewVisible = false;
+            Navigator.of(context).popUntil((route) => route.isFirst);
           },
         ),
       ],
@@ -101,6 +106,7 @@ NavigationBar navigationBar(BuildContext context) {
         Navigator.pushReplacementNamed(context, "/projectsView");
       } else if (index == 1) {
         Navigator.pushReplacementNamed(context, "/chatsView");
+        context.read<ChatsViewModel>().getChatRooms(FirebaseAuth.instance.currentUser!.displayName!);
       }
       context.read<NavBarViewModel>().selectedIndex = index;
     },
@@ -145,6 +151,8 @@ Widget projectCard(BuildContext context, {required Project project}) {
           onTap: () {
             context.read<ProjectFeedViewModel>().setSelectedProject(project);
             context.read<ProjectNotesViewModel>().setSelectedProject(project);
+            context.read<ProjectNotesViewModel>().setIsCreating(false);
+            context.read<ProjectFeedViewModel>().firstTimeExecution = true;
             context.read<NavBarViewModel>().selectedIndex = 0;
             Navigator.pushNamed(context, "/projectFeedView");
           },

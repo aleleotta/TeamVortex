@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:teamvortex/models/services/firestore/firestore_auth.dart';
+import 'package:teamvortex/models/services/firestore/firestore_chats.dart';
 
 class FirebaseAuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,6 +34,20 @@ class FirebaseAuthServices {
     int resultCode = 0;
     try {
       await _auth.signOut();
+    }
+    catch (err) {
+      resultCode = -1;
+    }
+    return resultCode;
+  }
+
+  Future<int> deleteAccount() async {
+    int resultCode = 0;
+    try {
+      //Delete all related data before deleting account
+      FirestoreUserChats().deleteAllChatRoomsFromUser(FirebaseAuth.instance.currentUser!.displayName!);
+      FirestoreAuth().deleteUser(FirebaseAuth.instance.currentUser!.email!);
+      await _auth.currentUser?.delete();
     }
     catch (err) {
       resultCode = -1;

@@ -58,7 +58,6 @@ class ProjectFeedViewModel extends ChangeNotifier {
       );
       statusCode = await FirestoreProjectFeed().sendMessage(message);
     } catch (err) {
-      //A Toast will appear in the UI
       statusCode = -1;
     }
     return statusCode;
