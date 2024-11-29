@@ -5,6 +5,7 @@ import 'package:teamvortex/models/services/firebase_auth_services.dart';
 class FirestoreProjects {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  ///Creates project
   Future<int> createProject(Project project) async {
     int statusCode = 0;
     try {
@@ -23,6 +24,7 @@ class FirestoreProjects {
     return statusCode;
   }
 
+  ///Returns a list of all projects that include user as member
   Future<List<Project>> getProjects() async { //Get all projects that include user as member.
     List<Project> projects = [];
     QuerySnapshot<Map<String, dynamic>>? querySnapshot;
@@ -84,6 +86,24 @@ class FirestoreProjects {
     return statusCode;
   }
 
+  ///Get all members of project
+  Future<List<String>> getProjectMembers(String docId) async {
+    List<String> members = [];
+    try {
+      DocumentSnapshot<Map<String, dynamic>> project = await _firestore
+      .collection("projects")
+      .doc(docId)
+      .get();
+      for (String member in project.data()!["members"]) {
+        members.add(member);
+      }
+    }
+    catch (err) {
+      return [];
+    }
+    return members;
+  }
+
   ///Checks if user exists
   Future<int> findUser(String username) async {
     int statusCode = 0;
@@ -103,6 +123,45 @@ class FirestoreProjects {
     return statusCode;
   }
 
+  ///Deletes user from all projects
+  Future<int> deleteUserFromAllProjects(String username) async {
+    int statusCode = 0;
+    try {
+      await _firestore.collection("projects").where("members", arrayContains: username).get()
+      .then(
+        (querySnapshot) {
+          for (var doc in querySnapshot.docs) {
+            _firestore.collection("projects").doc(doc.reference.id).update({
+              "members": FieldValue.arrayRemove([username])
+            });
+          }
+        }
+      );
+    }
+    catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
+  }
+
+  ///Deletes user from indicated project
+  Future<int> deleteUserFromProject(String docId, String username) async {
+    int statusCode = 0;
+    try {
+      await _firestore
+      .collection("projects")
+      .doc(docId)
+      .update({
+        "members": FieldValue.arrayRemove([username])
+      });
+    }
+    catch (err) {
+      statusCode = -1;
+    }
+    return statusCode;
+  }
+
+  ///Deletes project
   Future<int> deleteProject(String docId) async {
     int statusCode = 0;
     try {

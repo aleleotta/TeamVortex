@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:teamvortex/models/services/firestore/firestore_auth.dart';
 import 'package:teamvortex/models/services/firestore/firestore_chats.dart';
+import 'package:teamvortex/models/services/firestore/firestore_projects.dart';
 
 class FirebaseAuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -46,6 +47,7 @@ class FirebaseAuthServices {
     try {
       //Delete all related data before deleting account
       FirestoreUserChats().deleteAllChatRoomsFromUser(FirebaseAuth.instance.currentUser!.displayName!);
+      FirestoreProjects().deleteUserFromAllProjects(FirebaseAuth.instance.currentUser!.displayName!);
       FirestoreAuth().deleteUser(FirebaseAuth.instance.currentUser!.email!);
       await _auth.currentUser?.delete();
     }

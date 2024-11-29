@@ -9,14 +9,17 @@ import 'package:teamvortex/models/services/firestore/firestore_user_project_feed
 
 class ProjectFeedViewModel extends ChangeNotifier {
   Project? _selectedProject;
+  List<String> _members = [];
   Stream<QuerySnapshot>? _messages;
   bool firstTimeExecution = true;
 
   Project? get selectedProject => _selectedProject;
+  List<String> get members => _members;
   Stream<QuerySnapshot>? get messages => _messages;
 
-  void setSelectedProject(Project project) {
+  void setSelectedProject(Project project) async {
     _selectedProject = project;
+    _members = await FirestoreProjects().getProjectMembers(project.docId);
     _messages = FirestoreProjectFeed().getMessages(project.docId);
     notifyListeners();
   }

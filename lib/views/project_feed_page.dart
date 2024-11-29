@@ -211,6 +211,48 @@
         icon: const Icon(Icons.more_vert),
         itemBuilder: (context) => [
           PopupMenuItem(
+            child: const Text("View members"),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text("Members"),
+                    content: SizedBox(
+                      height: 300,
+                      width: 300,
+                      child: SingleChildScrollView(
+                        child: ListBody(
+                          children: context.watch<ProjectFeedViewModel>().members.map((member) {
+                            return ListTile(
+                              title: Container(
+                                decoration: const BoxDecoration(
+                                  border: Border.symmetric(horizontal: BorderSide(width: 0.5, color: Colors.black)),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Text(member),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        child: const Text("Close"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        }
+                      ),
+                    ],
+                  );
+                }
+              );
+            }
+          ),
+          PopupMenuItem(
             child: const Text("Add Member"),
             onTap: () {
               TextEditingController usernameController = TextEditingController();

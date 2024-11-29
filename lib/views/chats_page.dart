@@ -190,6 +190,7 @@ class ChatsView extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<ChatsViewModel>().setChatRoom(chatRoom);
+        _scrollDown();
         if (kDebugMode) {
           print("Chat Room pressed: ${chatRoom.members[1]}");
         }
@@ -276,7 +277,7 @@ class ChatsView extends StatelessWidget {
                         Message message = Message.fromMap(snapshot.data!.docs[index].data() as Map<String, dynamic>);
                         return _messageItem(context, message);
                       },
-                    );
+                    )
                   } else if (snapshot.hasError) {
                     return const Center(
                       child: Text("An error has occurred."),
