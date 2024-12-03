@@ -28,7 +28,6 @@ class ChatsView extends StatelessWidget {
 
   Widget _messagesViewTabletOrPC(BuildContext context, double screenWidth, double screenHeight) {
     double firstViewWidth = screenWidth * 0.3;
-    //double secondViewWidth = screenWidth * 0.7;
     return Scaffold(
       bottomNavigationBar: navigationBar(context),
       appBar: AppBar(
@@ -272,12 +271,13 @@ class ChatsView extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
+                      controller: _chatScrollController,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         Message message = Message.fromMap(snapshot.data!.docs[index].data() as Map<String, dynamic>);
                         return _messageItem(context, message);
                       },
-                    )
+                    );
                   } else if (snapshot.hasError) {
                     return const Center(
                       child: Text("An error has occurred."),

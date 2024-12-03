@@ -12,12 +12,14 @@ class ProjectFeedViewModel extends ChangeNotifier {
   List<String> _members = [];
   Stream<QuerySnapshot>? _messages;
   bool firstTimeExecution = true;
+  bool isAdmin = false;
 
   Project? get selectedProject => _selectedProject;
   List<String> get members => _members;
   Stream<QuerySnapshot>? get messages => _messages;
 
   void setSelectedProject(Project project) async {
+    isAdmin = project.creatorRef == FirebaseAuth.instance.currentUser!.uid;
     _selectedProject = project;
     _members = await FirestoreProjects().getProjectMembers(project.docId);
     _messages = FirestoreProjectFeed().getMessages(project.docId);

@@ -31,7 +31,7 @@
           backgroundColor: Colors.blue,
           automaticallyImplyLeading: true,
           actions: [
-            _projectOptions()
+            _projectOptions(context)
           ]
         ),
         body: Padding(
@@ -206,158 +206,273 @@
       }
     }
 
-    PopupMenuButton _projectOptions() {
-      return PopupMenuButton(
-        icon: const Icon(Icons.more_vert),
-        itemBuilder: (context) => [
-          PopupMenuItem(
-            child: const Text("View members"),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text("Members"),
-                    content: SizedBox(
-                      height: 300,
-                      width: 300,
-                      child: SingleChildScrollView(
-                        child: ListBody(
-                          children: context.watch<ProjectFeedViewModel>().members.map((member) {
-                            return ListTile(
-                              title: Container(
-                                decoration: const BoxDecoration(
-                                  border: Border.symmetric(horizontal: BorderSide(width: 0.5, color: Colors.black)),
+    PopupMenuButton _projectOptions(BuildContext context) {
+      bool checkAdmin = context.read<ProjectFeedViewModel>().isAdmin;
+      if (checkAdmin) {
+        return PopupMenuButton(
+          icon: const Icon(Icons.more_vert),
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              child: const Text("View members"),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Members"),
+                      content: SizedBox(
+                        height: 300,
+                        width: 300,
+                        child: SingleChildScrollView(
+                          child: ListBody(
+                            children: context.watch<ProjectFeedViewModel>().members.map((member) {
+                              return ListTile(
+                                title: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border.symmetric(horizontal: BorderSide(width: 0.5, color: Colors.black)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(member),
+                                  ),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Text(member),
-                                ),
-                              ),
-                            );
-                          }).toList(),
+                              );
+                            }).toList(),
+                          ),
                         ),
                       ),
-                    ),
-                    actions: [
-                      TextButton(
-                        child: const Text("Close"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        }
+                      actions: [
+                        TextButton(
+                          child: const Text("Close"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }
+                        ),
+                      ],
+                    );
+                  }
+                );
+              }
+            ),
+            PopupMenuItem(
+              child: const Text("Add Member"),
+              onTap: () {
+                TextEditingController usernameController = TextEditingController();
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Add Member"),
+                      content: SizedBox(
+                        height: 75,
+                        child: Column(
+                          children: <Widget>[
+                            const Text("Specify the username:"),
+                            const SizedBox(height: 5),
+                            inputFieldWithHoveringLabel("", controller: usernameController),
+                          ],
+                        ),
                       ),
-                    ],
-                  );
-                }
-              );
-            }
-          ),
-          PopupMenuItem(
-            child: const Text("Add Member"),
-            onTap: () {
-              TextEditingController usernameController = TextEditingController();
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text("Add Member"),
-                    content: SizedBox(
-                      height: 75,
-                      child: Column(
-                        children: <Widget>[
-                          const Text("Specify the username:"),
-                          const SizedBox(height: 5),
-                          inputFieldWithHoveringLabel("", controller: usernameController),
-                        ],
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10)
+                        )
                       ),
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10)
-                      )
-                    ),
-                    actions: [
-                      TextButton(
-                        child: const Text("Cancel"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      TextButton(
-                        child: const Text("Add"),
-                        onPressed: () async {
-                          await context.read<ProjectFeedViewModel>().addUserToProject(usernameController.text)
-                          .then((statusCode) {
-                            if (usernameController.text.isEmpty) {
-                              SnackBar snackBar = const SnackBar(content: Text("Please enter a username."), backgroundColor: Colors.red);
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                            } else {
-                              if (statusCode == 0) {
-                                Navigator.pop(context);
-                                SnackBar snackBar = const SnackBar(content: Text("Member added successfully.",), backgroundColor: Colors.green);
+                      actions: [
+                        TextButton(
+                          child: const Text("Cancel"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: const Text("Add"),
+                          onPressed: () async {
+                            await context.read<ProjectFeedViewModel>().addUserToProject(usernameController.text)
+                            .then((statusCode) {
+                              if (usernameController.text.isEmpty) {
+                                SnackBar snackBar = const SnackBar(content: Text("Please enter a username."), backgroundColor: Colors.red);
                                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              } else if (statusCode == -1) {
-                                SnackBar snackBar = const SnackBar(content: Text("Error adding member."), backgroundColor: Colors.red);
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              } else if (statusCode == -2) {
-                                SnackBar snackBar = const SnackBar(content: Text("User does not exist."), backgroundColor: Colors.red);
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              } else if (statusCode == -3) {
-                                SnackBar snackBar = const SnackBar(content: Text("User already forms part of this project."), backgroundColor: Colors.red);
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              } else {
+                                if (statusCode == 0) {
+                                  Navigator.pop(context);
+                                  SnackBar snackBar = const SnackBar(content: Text("Member added successfully.",), backgroundColor: Colors.green);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                } else if (statusCode == -1) {
+                                  SnackBar snackBar = const SnackBar(content: Text("Error adding member."), backgroundColor: Colors.red);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                } else if (statusCode == -2) {
+                                  SnackBar snackBar = const SnackBar(content: Text("User does not exist."), backgroundColor: Colors.red);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                } else if (statusCode == -3) {
+                                  SnackBar snackBar = const SnackBar(content: Text("User already forms part of this project."), backgroundColor: Colors.red);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                }
                               }
-                            }
-                          });
-                        },
+                            });
+                          },
+                        ),
+                      ]
+                    );
+                  }
+                );
+              }
+            ),
+            PopupMenuItem(
+              child: const Text("Delete Project"),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Delete Project"),
+                      content: const Text("Are you sure you want to delete this project?"),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10)
+                        )
                       ),
-                    ]
-                  );
-                }
-              );
-            }
-          ),
-          PopupMenuItem(
-            child: const Text("Delete Project"),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text("Delete Project"),
-                    content: const Text("Are you sure you want to delete this project?"),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10)
-                      )
-                    ),
-                    actions: [
-                      TextButton(
-                        child: const Text("Cancel"),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                      actions: [
+                        TextButton(
+                          child: const Text("Cancel"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: const Text("Delete"),
+                          onPressed: () async {
+                            await context.read<ProjectFeedViewModel>().deleteProject(context)
+                            .then((statusCode) {
+                              if (statusCode == 0) {
+                                context.read<ProjectsViewModel>().clearProjectsList();
+                                context.read<ProjectsViewModel>().getProjects();
+                                Navigator.pushReplacementNamed(context, "/projectsView");
+                              }
+                            });
+                          },
+                        ),
+                      ]
+                    );
+                  }
+                );
+              }
+            )
+          ]
+        );
+      } else {
+        return PopupMenuButton(
+          icon: const Icon(Icons.more_vert),
+          itemBuilder: (context) => [
+            PopupMenuItem(
+              child: const Text("View members"),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Members"),
+                      content: SizedBox(
+                        height: 300,
+                        width: 300,
+                        child: SingleChildScrollView(
+                          child: ListBody(
+                            children: context.watch<ProjectFeedViewModel>().members.map((member) {
+                              return ListTile(
+                                title: Container(
+                                  decoration: const BoxDecoration(
+                                    border: Border.symmetric(horizontal: BorderSide(width: 0.5, color: Colors.black)),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(member),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                       ),
-                      TextButton(
-                        child: const Text("Delete"),
-                        onPressed: () async {
-                          await context.read<ProjectFeedViewModel>().deleteProject(context)
-                          .then((statusCode) {
-                            if (statusCode == 0) {
-                              context.read<ProjectsViewModel>().clearProjectsList();
-                              context.read<ProjectsViewModel>().getProjects();
-                              Navigator.pushReplacementNamed(context, "/projectsView");
-                            }
-                          });
-                        },
+                      actions: [
+                        TextButton(
+                          child: const Text("Close"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }
+                        ),
+                      ],
+                    );
+                  }
+                );
+              }
+            ),
+            PopupMenuItem(
+              child: const Text("Add Member"),
+              onTap: () {
+                TextEditingController usernameController = TextEditingController();
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Add Member"),
+                      content: SizedBox(
+                        height: 75,
+                        child: Column(
+                          children: <Widget>[
+                            const Text("Specify the username:"),
+                            const SizedBox(height: 5),
+                            inputFieldWithHoveringLabel("", controller: usernameController),
+                          ],
+                        ),
                       ),
-                    ]
-                  );
-                }
-              );
-            }
-          )
-        ]
-      );
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10)
+                        )
+                      ),
+                      actions: [
+                        TextButton(
+                          child: const Text("Cancel"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: const Text("Add"),
+                          onPressed: () async {
+                            await context.read<ProjectFeedViewModel>().addUserToProject(usernameController.text)
+                            .then((statusCode) {
+                              if (usernameController.text.isEmpty) {
+                                SnackBar snackBar = const SnackBar(content: Text("Please enter a username."), backgroundColor: Colors.red);
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              } else {
+                                if (statusCode == 0) {
+                                  Navigator.pop(context);
+                                  SnackBar snackBar = const SnackBar(content: Text("Member added successfully.",), backgroundColor: Colors.green);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                } else if (statusCode == -1) {
+                                  SnackBar snackBar = const SnackBar(content: Text("Error adding member."), backgroundColor: Colors.red);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                } else if (statusCode == -2) {
+                                  SnackBar snackBar = const SnackBar(content: Text("User does not exist."), backgroundColor: Colors.red);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                } else if (statusCode == -3) {
+                                  SnackBar snackBar = const SnackBar(content: Text("User already forms part of this project."), backgroundColor: Colors.red);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                }
+                              }
+                            });
+                          },
+                        ),
+                      ]
+                    );
+                  }
+                );
+              }
+            )
+          ]
+        );
+      }
     }
 
   }
