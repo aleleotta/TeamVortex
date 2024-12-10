@@ -5,6 +5,9 @@ import 'package:teamvortex/models/entities/Message.dart';
 class FirestoreUserChats {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  ///Creates a new ChatRoom in Firestore including two users as members.
+  ///
+  ///The purpose of a ChatRoom is to hold messages between two users.
   Future<int> addChatRoom(ChatRoom chatRoom) async {
     int statusCode = 0;
     try {
@@ -36,6 +39,7 @@ class FirestoreUserChats {
     return statusCode;
   }
 
+  ///Returns a list of ChatRooms that the user is a member of.
   Future<List<ChatRoom>> getChatRooms(String username) async {
     List<ChatRoom> chatRooms = [];
     QuerySnapshot<Map<String, dynamic>>? querySnapshot;
@@ -56,6 +60,7 @@ class FirestoreUserChats {
     return chatRooms;
   }
 
+  ///Uploads a new message to Firestore with the ChatRoom ID as the receiverID (FK).
   Future<int> sendMessage(Message message) async {
     int statusCode = 0;
     try {
@@ -66,6 +71,7 @@ class FirestoreUserChats {
     return statusCode;
   }
 
+  ///Returns all messages of a ChatRoom from Firestore by using a stream and returning it.
   Stream<QuerySnapshot> getMessages(String chatRoomId) {
     try {
       return _firestore
@@ -79,7 +85,8 @@ class FirestoreUserChats {
     }
   }
 
-  Future<int> deleteChatRoom(String docId) async { //Will be implemented later.
+  ///Deletes a ChatRoom from Firestore.
+  Future<int> deleteChatRoom(String docId) async {
     int statusCode = 0;
     try {
       _firestore.collection("chat_rooms").doc(docId).delete();
@@ -98,6 +105,7 @@ class FirestoreUserChats {
     return statusCode;
   }
 
+  ///Deletes all ChatRooms of a user from Firestore.
   Future<int> deleteAllChatRoomsFromUser(String username) async {
     int statusCode = 0;
     try {

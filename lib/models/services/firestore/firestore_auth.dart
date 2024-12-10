@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirestoreAuth {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  ///Returns the email of the user with the given username.
   Future<String?> loginWithUsername(String username) async {
     QuerySnapshot<Map<String, dynamic>>? querySnapshot;
     try {
@@ -18,6 +19,7 @@ class FirestoreAuth {
     }
   }
 
+  ///Registers a new user into Firestore while also registering in Firabase Auth.
   Future<int> registerCredentials(String email, String username, String firstName, String lastNames) async {
     int statusCode = 0;
     try {
@@ -34,6 +36,7 @@ class FirestoreAuth {
     return statusCode;
   }
 
+  ///Deletes the user with the given email from Firestore.
   Future<int> deleteUser(String email) async {
     int statusCode = 0;
     try {

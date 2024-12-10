@@ -8,6 +8,7 @@ class FirebaseAuthServices {
 
   get instance => _auth;
 
+  ///Signs up user and returns the credentials.
   Future<User?> signUpWithEmailAndPassword(String email, String password, String username) async {
     try {
       UserCredential credentials = await _auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -20,6 +21,7 @@ class FirebaseAuthServices {
     }
   }
 
+  ///Signs in user and returns the credentials.
   Future<User?> signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential credentials = await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -31,6 +33,7 @@ class FirebaseAuthServices {
     }
   }
 
+  ///Signs out user.
   Future<int> signOut() async {
     int resultCode = 0;
     try {
@@ -42,6 +45,7 @@ class FirebaseAuthServices {
     return resultCode;
   }
 
+  ///Deletes all related data and deletes account later on.
   Future<int> deleteAccount() async {
     int resultCode = 0;
     try {
