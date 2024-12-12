@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        // ViewModels
         ChangeNotifierProvider(create: (context) => LoginRegisterViewModel()),
         ChangeNotifierProvider(create: (context) => ProjectsViewModel()),
         ChangeNotifierProvider(create: (context) => ChatsViewModel()),
