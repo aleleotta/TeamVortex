@@ -1,16 +1,9 @@
-# teamvortex
+# TeamVortex
 
-A new Flutter project.
+Welcome to the TeamVortex project, a new Flutter application that aims to revolutionize how teams collaborate and communicate. This project is in its early stages, and we are excited to share our journey with you.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Team collaboration
+- Real-time messaging
+- Task management
