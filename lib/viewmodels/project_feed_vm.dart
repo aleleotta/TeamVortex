@@ -18,6 +18,7 @@ class ProjectFeedViewModel extends ChangeNotifier {
   List<String> get members => _members;
   Stream<QuerySnapshot>? get messages => _messages;
 
+  /// Notifies listeners that the selected project has changed.
   void setSelectedProject(Project project) async {
     isAdmin = project.creatorRef == FirebaseAuth.instance.currentUser!.uid;
     _selectedProject = project;
@@ -30,6 +31,7 @@ class ProjectFeedViewModel extends ChangeNotifier {
     _selectedProject = null;
   }
 
+  /// Adds user to indicated project
   Future<int> addUserToProject(String username) async {
     int statusCode = 0;
     try {
@@ -40,6 +42,7 @@ class ProjectFeedViewModel extends ChangeNotifier {
     return statusCode;
   }
 
+  /// Deletes user from indicated project
   Future<int> deleteProject(context) async {
     int statusCode = 0;
     try {
@@ -51,6 +54,7 @@ class ProjectFeedViewModel extends ChangeNotifier {
     return statusCode;
   }
 
+  /// Uploads a new message to Firestore.
   Future<int> sendMessage(String messageString) async {
     int statusCode = 0;
     try {

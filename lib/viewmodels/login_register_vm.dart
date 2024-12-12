@@ -22,7 +22,11 @@ class LoginRegisterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // This function will check if the account information is correct.
+  /// Checks if the account information is correct.
+  /// 
+  /// If the account information is correct, the user will be logged in.
+  /// 
+  /// Returns 0 for success, -1 for failure.
   Future<int> checkInfoLogin(String emailOrUsername, String password) async {
     int resultCode = 0; // 0 for success, -1 for failure
     bool isEmail = RegExp(r'^[a-z0-9.-]{3,}@[a-z0-9-]{2,}\.[a-z]{2,}$').hasMatch(emailOrUsername);
@@ -67,7 +71,7 @@ class LoginRegisterViewModel extends ChangeNotifier {
   }
 
   /// This function will check if the account information is correct.
-  /// If all data is valid, _registerAccountIntoFirebase() will be called.
+  /// If all data is valid, _registerAccountIntoFirebase() will be called to register the new user.
   Future<int> checkInfoRegister(String firstName, String lastName, String email, String username, String password, String repeatPassword) async {
     int resultCode = 0;
     if (firstName.isEmpty || lastName.isEmpty || email.isEmpty || username.isEmpty || password.isEmpty || repeatPassword.isEmpty) {

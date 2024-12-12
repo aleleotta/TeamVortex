@@ -5,6 +5,7 @@ class NavBarViewModel extends ChangeNotifier {
 
   int get selectedIndex => _selectedIndex;
 
+  /// Sets the selected index and notifies listeners.
   set selectedIndex(int value) {
     _selectedIndex = value;
     notifyListeners();

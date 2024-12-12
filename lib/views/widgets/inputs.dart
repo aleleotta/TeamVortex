@@ -9,6 +9,7 @@ import 'package:teamvortex/viewmodels/project_feed_vm.dart';
 import 'package:teamvortex/viewmodels/project_notes_vm.dart';
 import 'package:teamvortex/viewmodels/projects_vm.dart';
 
+/// A reusable input field with a hovering label instead of having a normal Text widget.
 Widget inputFieldWithHoveringLabel(String? labelName, {bool isPassword = false,
 TextEditingController? controller, double maxWidth = 200, int maxLines = 1}) {
   return SizedBox(
@@ -27,6 +28,7 @@ TextEditingController? controller, double maxWidth = 200, int maxLines = 1}) {
   );
 }
 
+/// A reusable input field with a label before it.
 Widget inputFieldWithLabel(String labelName, {bool isPassword = false,
 TextEditingController? controller, double maxWidth = 200, int maxLines = 1}) {
   return Column(
@@ -48,6 +50,7 @@ TextEditingController? controller, double maxWidth = 200, int maxLines = 1}) {
   );
 }
 
+/// A reusable error message widget.
 Text errorMessage(String message) {
   return Text(
     message,
@@ -58,6 +61,7 @@ Text errorMessage(String message) {
   );
 }
 
+/// This drawer sets the options for the navigation drawer while in the main navigation after logging in.
 Drawer drawerOptions(BuildContext context) {
   return Drawer(
     width: MediaQuery.of(context).size.width * 0.38,
@@ -86,6 +90,7 @@ Drawer drawerOptions(BuildContext context) {
   );
 }
 
+/// This navigation bar lets the user navigate the main interfaces (Currently Projects and Chats).
 NavigationBar navigationBar(BuildContext context) {
   return NavigationBar(
     height: 70,
@@ -113,6 +118,7 @@ NavigationBar navigationBar(BuildContext context) {
   );
 }
 
+/// This navigation bar lets the user navigate the project interfaces (Currently Feed and Notes).
 NavigationBar navigationBarInsideProject(BuildContext context) {
   return NavigationBar(
     height: 70,
@@ -140,6 +146,7 @@ NavigationBar navigationBarInsideProject(BuildContext context) {
   );
 }
 
+/// This widget creates a card for each project.
 Widget projectCard(BuildContext context, {required Project project}) {
   int day = project.creationDate.day;
   int month = project.creationDate.month;

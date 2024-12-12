@@ -8,6 +8,7 @@ class CreateProjectViewModel extends ChangeNotifier {
   Project? _project;
   String errorMessage = "";
 
+  /// Creates a new project with the defined parameters.
   Future<int> createNewProject(String title, String description) async {
     int statusCode = 0;
     try {

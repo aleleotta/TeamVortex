@@ -15,6 +15,7 @@ class ChatsViewModel extends ChangeNotifier {
   ChatRoom? get selectedChatRoom => _selectedChatRoom;
   Stream<QuerySnapshot>? get chatRoomMessages => _chatRoomMessages;
 
+  /// Creates a new ChatRoom with two users as members
   Future<int> addChatRoom(String username) async {
     int statusCode = 0;
     try {
@@ -28,11 +29,13 @@ class ChatsViewModel extends ChangeNotifier {
     return statusCode;
   }
 
+  /// Returns a list of ChatRooms that the user is a member of
   void getChatRooms(String username) async {
     _chatRooms = await FirestoreUserChats().getChatRooms(username);
     notifyListeners();
   }
 
+  /// Deletes a ChatRoom and notifies listeners.
   Future<int> deleteChatRoom() async {
     int statusCode = 0;
     try {
@@ -49,6 +52,7 @@ class ChatsViewModel extends ChangeNotifier {
     return statusCode;
   }
 
+  /// Sets the selected chat room and notifies listeners.
   void setChatRoom(ChatRoom chatRoom) {
     _selectedChatRoom = chatRoom;
     _chatRoomMessages = FirestoreUserChats().getMessages(chatRoom.id);
@@ -56,11 +60,13 @@ class ChatsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Clears the list of ChatRooms and notifies listeners.
   void clearChatRoomsList() {
     _chatRooms.clear();
     notifyListeners();
   }
 
+  /// Uploads a new message to Firestore
   Future<int> sendMessage(String messageString) async {
     int statusCode = 0;
     try {

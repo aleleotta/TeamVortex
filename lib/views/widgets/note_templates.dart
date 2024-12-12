@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:teamvortex/models/entities/ProjectNote.dart';
 import 'package:teamvortex/viewmodels/project_notes_vm.dart';
 
+/// Creates a card to let the user create a project note.
 Widget projectNoteCardCreate(BuildContext context, String projectRef) {
   double cardHeight = 220;
   TextEditingController titleController = TextEditingController();
@@ -128,6 +129,7 @@ Widget projectNoteCardCreate(BuildContext context, String projectRef) {
   );
 }
 
+/// Creates a card to show a project note.
 Widget projectNoteCard(BuildContext context, {required ProjectNote note}) {
   double cardHeight = 175;
   String time = DateFormat("dd/MM/yyyy hh:mm a").format(note.creationDate.toDate());

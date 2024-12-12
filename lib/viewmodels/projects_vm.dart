@@ -7,6 +7,7 @@ class ProjectsViewModel extends ChangeNotifier {
 
   List<Project> get projects => _projects;
 
+  /// Get all projects where user is a member.
   void getProjects() async {
     try {
       _projects = await FirestoreProjects().getProjects();

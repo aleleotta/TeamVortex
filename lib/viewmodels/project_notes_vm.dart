@@ -13,24 +13,28 @@ class ProjectNotesViewModel extends ChangeNotifier {
   bool get addButtonVisible => _addButtonVisible;
   bool get isCreating => _isCreating;
 
+  /// Notifies listeners that the add note button visibility has changed.
   void setIsCreating(bool isCreating) {
     _isCreating = isCreating;
     _addButtonVisible = !isCreating;
     notifyListeners();
   }
 
+  /// Notifies listeners that the add note button has been pressed.
   void addButtonPressed() {
     _addButtonVisible = false;
     _isCreating = true;
     notifyListeners();
   }
 
+  /// Notifies listeners that the note has been finalized and should be added to the list.
   void noteFinalized() {
     _addButtonVisible = true;
     _isCreating = false;
     notifyListeners();
   }
 
+  /// Notifies listeners that the selected project has changed.
   void setSelectedProject(Project project) async {
     _selectedProject = project;
     try {
@@ -42,6 +46,7 @@ class ProjectNotesViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Gets the notes for the selected project.
   void getNotes() async {
     try {
       _notesList = await FirestoreProjectNotes().getNotes(_selectedProject!.docId);
@@ -52,6 +57,7 @@ class ProjectNotesViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Adds a new note to the selected project.
   void addNote(String projectId, ProjectNote note) async {
     int statusCode = await FirestoreProjectNotes().addNote(projectId, note);
     if (statusCode == 0) {
@@ -60,6 +66,7 @@ class ProjectNotesViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Deletes a note from the selected project.
   Future<int> deleteNote(ProjectNote note) async {
     int statusCode = 0;
     try {
