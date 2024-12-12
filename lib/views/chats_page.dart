@@ -26,6 +26,8 @@ class ChatsView extends StatelessWidget {
     );
   }
 
+  /// Returns a widget for tablet or PC-sized screens containing a list of chats and
+  /// a view for the selected chat.
   Widget _messagesViewTabletOrPC(BuildContext context, double screenWidth, double screenHeight) {
     double firstViewWidth = screenWidth * 0.3;
     return Scaffold(
@@ -109,6 +111,14 @@ class ChatsView extends StatelessWidget {
     );
   }
 
+  /// Displays a dialog that allows the user to create a new chat by specifying a username.
+  /// 
+  /// The dialog includes a text input for the username and two buttons: "Cancel" and "Add".
+  /// If the "Add" button is pressed, the function checks if the input is valid and attempts 
+  /// to create a new chat room with the specified user. Various error messages are shown 
+  /// as snackbars in case of invalid input or if the chat creation fails.
+  /// 
+  /// Returns a [Future] that resolves when the dialog is closed.
   Future _addChatView(BuildContext context, double screenWidth, double screenHeight) {
     TextEditingController usernameController = TextEditingController();
     return showDialog(
@@ -177,6 +187,14 @@ class ChatsView extends StatelessWidget {
     );
   }
 
+  /// Creates a widget representing a chat room item in the list of chat rooms.
+  /// 
+  /// The widget displays the username of the other user in the chat room.
+  /// When tapped, it sets the selected chat room, scrolls down to the latest messages, 
+  /// and prints the chat room details in debug mode.
+  /// 
+  /// The [context] parameter is the build context for the widget.
+  /// The [chatRoom] parameter contains the details of the chat room to display.
   Widget _chatRoomItem(BuildContext context, ChatRoom chatRoom) {
     String usernameDisplay = "";
     if (FirebaseAuth.instance.currentUser?.displayName != null) {
@@ -207,6 +225,12 @@ class ChatsView extends StatelessWidget {
     );
   }
 
+  /// A widget that displays the chat room header and the chat messages.
+  ///
+  /// - The header contains the username of the other user in the chat room.
+  /// - The chat messages are displayed in a list view.
+  /// - The user can type a message in the input field at the bottom of the screen.
+  /// - The user can delete the chat room by pressing the more options button and selecting "Delete chat".
   Widget _chatView(BuildContext context, double screenWidth, double screenHeight) {
     return Column(
       children: <Widget>[
@@ -318,6 +342,19 @@ class ChatsView extends StatelessWidget {
     );
   }
 
+  /// Creates a widget that displays a message within a card.
+  ///
+  /// The card contains:
+  /// - The sender's username at the top-left, styled in bold.
+  /// - The message content in the center-left.
+  /// - The timestamp of the message at the bottom-right, formatted based on the
+  ///   message date:
+  ///   - "hh:mm a" if the message was sent today.
+  ///   - "dd/MM hh:mm a" if sent within the current year.
+  ///   - "dd/MM/yyyy hh:mm a" if sent in a previous year.
+  ///
+  /// The [context] parameter is the build context for the widget.
+  /// The [message] parameter contains the message details to display.
   Widget _messageItem(BuildContext context, Message message) {
     String time;
     if (message.timestamp.toDate().day == DateTime.now().day) {

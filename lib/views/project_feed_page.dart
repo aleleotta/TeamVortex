@@ -24,6 +24,9 @@
       );
     }
     
+    /// This widget displays the project feed, where users can post messages to share
+    /// with other project members. The widget is scrollable and has a text field at
+    /// the bottom for users to input their messages.
     Widget _projectFeedView(BuildContext context, double screenWidth, double screenHeight) {
       return Scaffold(
         appBar: AppBar(
@@ -107,6 +110,16 @@
       );
     }
 
+    /// Creates a widget that displays a message within a card.
+    ///
+    /// The card contains:
+    /// - The sender's username at the top-left, styled in bold.
+    /// - The message content in the center-left.
+    /// - The timestamp of the message at the bottom-right, formatted based on the
+    ///   message date:
+    ///   - "hh:mm a" if the message was sent today.
+    ///   - "dd/MM hh:mm a" if sent within the current year.
+    ///   - "dd/MM/yyyy hh:mm a" if sent in a previous year.
     Widget _messageItem(BuildContext context, Message message) {
       String time;
       if (message.timestamp.toDate().day == DateTime.now().day) {
@@ -139,6 +152,17 @@
       );
     }
 
+    /// Creates a widget containing an input field and a send button for sending messages.
+    /// 
+    /// The widget consists of:
+    /// - An expandable text field where the user can type a message. 
+    ///   Upon pressing enter, the message is sent if the field is not empty.
+    /// - A send button to the right of the text field, which sends the message 
+    ///   when pressed, provided the input is not empty. After sending, the input
+    ///   field is cleared and the view scrolls down to the latest message.
+    /// 
+    /// The [context] parameter is used to access the widget tree, 
+    /// allowing interaction with the view model for sending messages and controlling the scroll position.
     Widget _inputFieldWithSend(BuildContext context) {
       double elementHeight = 50;
       return Row(
@@ -192,6 +216,7 @@
       );
     }
 
+    /// Scrolls down to the bottom of the scroll view with an animation.
     void _scrollDown() {
       try {
         _scrollController.animateTo(
@@ -206,6 +231,15 @@
       }
     }
 
+    /// A button that shows a menu with options related to the project.
+    ///
+    /// If the user is an administrator, the menu contains the following options:
+    /// - View members: opens a dialog with a list of all members of the project.
+    /// - Add member: opens a dialog to add a new member to the project.
+    /// - Delete project: opens a dialog to confirm the deletion of the project.
+    ///
+    /// If the user is not an administrator, the menu only contains the option
+    /// "View members".
     PopupMenuButton _projectOptions(BuildContext context) {
       bool checkAdmin = context.read<ProjectFeedViewModel>().isAdmin;
       if (checkAdmin) {

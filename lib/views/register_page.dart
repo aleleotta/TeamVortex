@@ -24,6 +24,19 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
+  /// Creates a view for registering a new user with input fields for first name, last names, username, 
+  /// email, password and repeat password, and a button to submit the registration request.
+  /// 
+  /// The view is presented with a centered layout, containing a form with labeled input fields and 
+  /// displays an error message if registration fails. Upon successful registration, it navigates back to the 
+  /// previous screen.
+  /// 
+  /// Parameters:
+  /// - `context`: BuildContext to access the widget tree.
+  /// - `screenWidth`: The width of the screen.
+  /// - `screenHeight`: The height of the screen.
+  /// 
+  /// Returns a Scaffold widget containing the registration form.
   Widget _registerView(BuildContext context, double screenWidth, double screenHeight) {
     return Scaffold(
       appBar: AppBar(
@@ -58,6 +71,22 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
+  /// Creates a registration form with input fields for user details and a submit button.
+  /// 
+  /// This form includes input fields for first name, last names, email, username, password,
+  /// and repeat password, with each field having a hovering label for guidance. The password
+  /// and repeat password fields include a toggle icon to show or hide the password.
+  /// 
+  /// An error message is displayed if there is an issue with registration input, and a submit
+  /// button is provided to initiate the registration process. Upon successful registration,
+  /// the user is navigated to the projects view.
+  /// 
+  /// Parameters:
+  /// - `context`: BuildContext to access the widget tree.
+  /// - `screenWidth`: The width of the screen for layout calculations.
+  /// - `screenHeight`: The height of the screen for layout calculations.
+  /// 
+  /// Returns a Container widget containing the registration form.
   Widget _registerForm(BuildContext context, double screenWidth, double screenHeight) {
     return Container(
     padding: const EdgeInsets.all(16),

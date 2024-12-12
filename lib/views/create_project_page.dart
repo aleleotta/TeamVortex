@@ -20,6 +20,19 @@ class CreateProjectPage extends StatelessWidget {
     );
   }
   
+/// Creates a view for adding a new project with input fields for title and 
+/// description, and a button to submit the project creation request.
+/// 
+/// The view is presented with a centered layout, containing a form with 
+/// labeled input fields and displays an error message if project creation 
+/// fails. Upon successful creation, it navigates back to the previous screen.
+/// 
+/// Parameters:
+/// - `context`: BuildContext to access the widget tree.
+/// - `screenWidth`: The width of the screen.
+/// - `screenHeight`: The height of the screen.
+/// 
+/// Returns a Scaffold widget containing the project creation form.
   Widget _createProjectView(BuildContext context, double screenWidth, double screenHeight) {
     double fieldLength = 300;
     return Scaffold(

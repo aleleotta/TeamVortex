@@ -26,6 +26,13 @@ class SettingsView extends StatelessWidget {
     );
   }
   
+  /// A widget that displays the settings page.
+  ///
+  /// The settings page contains a "Delete Account" button that, when pressed, opens a dialog
+  /// that asks the user to type the word "DELETE" to confirm the deletion.
+  ///
+  /// If the typed word doesn't match, an error message is displayed. If the typed word does
+  /// match, the account is deleted and the user is navigated to the login page.
   Widget _settingsView(BuildContext context, double screenWidth, double screenHeight) {
     return Scaffold(
       body: Center(

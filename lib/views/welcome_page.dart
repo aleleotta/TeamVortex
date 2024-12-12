@@ -28,6 +28,14 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
+  /// This widget represents the welcome view of the application.
+  /// 
+  /// It is composed of a centered column containing a welcome message, a login button, and a registration button.
+  /// The welcome message is styled in a large, bold, italic font with a white color and a black shadow.
+  /// The login and registration buttons are blue buttons with white text.
+  /// The login button navigates to the login view when pressed.
+  /// The registration button navigates to the registration view when pressed.
+  /// The height of the view is adjusted based on the screen height.
   Widget _welcomeView(BuildContext context, double screenWidth, double screenHeight) {
     return Padding(
       padding: const EdgeInsets.all(20),

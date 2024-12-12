@@ -19,6 +19,18 @@ class ProjectNotesPage extends StatelessWidget {
     );
   }
 
+  /// Builds the Project Notes view with a list of project notes and a button to add new notes.
+  ///
+  /// The view is structured with an AppBar, a ListView displaying project notes,
+  /// and a conditional widget for creating new notes. It also includes a button
+  /// to add new notes which is visible based on the state in the ProjectNotesViewModel.
+  ///
+  /// Parameters:
+  /// - `context`: The BuildContext to access the widget tree.
+  /// - `screenWidth`: The width of the screen for layout calculations.
+  /// - `screenHeight`: The height of the screen for layout calculations.
+  ///
+  /// Returns a Scaffold widget containing the project notes and associated controls.
   Widget _projectNotesView(BuildContext context, double screenWidth, double screenHeight) {
     return Scaffold(
       appBar: AppBar(

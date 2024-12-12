@@ -18,6 +18,13 @@ class LoginPage extends StatelessWidget {
     ));
   }
 
+  /// This widget represents the login view of the application.
+  /// 
+  /// This view features a text field for the user's username or email, a password field, an error message field,
+  /// and a submit button. The user types their username or email and password into the respective text fields,
+  /// and upon submitting, the application checks the information against the database. If the information is
+  /// correct, the user is logged in and the application navigates to the projects view. If the information is
+  /// incorrect, an error message is displayed to the user.
   Widget _loginView(BuildContext context, double screenWidth, double screenHeight) {
     return Scaffold(
         appBar: AppBar(
