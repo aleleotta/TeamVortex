@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teamvortex/viewmodels/create_project_vm.dart';
-import 'package:teamvortex/viewmodels/projects_vm.dart';
-import 'package:teamvortex/views/widgets/inputs.dart';
+import 'package:teamvortex/frontend/viewmodels/create_project_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/projects_vm.dart';
+import 'package:teamvortex/frontend/views/widgets/inputs.dart';
 
 class CreateProjectPage extends StatelessWidget {
   CreateProjectPage({super.key});

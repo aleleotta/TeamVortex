@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:teamvortex/models/services/firestore/firestore_auth.dart';
-import 'package:teamvortex/models/services/firestore/firestore_chats.dart';
-import 'package:teamvortex/models/services/firestore/firestore_projects.dart';
+import 'package:teamvortex/backend/models/services/firestore/firestore_auth.dart';
+import 'package:teamvortex/backend/models/services/firestore/firestore_chats.dart';
+import 'package:teamvortex/backend/models/services/firestore/firestore_projects.dart';
 
 class FirebaseAuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;

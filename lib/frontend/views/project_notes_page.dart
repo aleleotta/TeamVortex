@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teamvortex/viewmodels/project_feed_vm.dart';
-import 'package:teamvortex/viewmodels/project_notes_vm.dart';
-import 'package:teamvortex/views/widgets/inputs.dart';
-import 'package:teamvortex/views/widgets/note_templates.dart';
+import 'package:teamvortex/frontend/viewmodels/project_feed_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/project_notes_vm.dart';
+import 'package:teamvortex/frontend/views/widgets/inputs.dart';
+import 'package:teamvortex/frontend/views/widgets/note_templates.dart';
 
 class ProjectNotesPage extends StatelessWidget {
   const ProjectNotesPage({super.key});

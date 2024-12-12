@@ -2,10 +2,10 @@
   import 'package:flutter/foundation.dart';
   import 'package:flutter/material.dart';
   import 'package:provider/provider.dart';
-  import 'package:teamvortex/models/entities/Message.dart';
-  import 'package:teamvortex/viewmodels/project_feed_vm.dart';
-  import 'package:teamvortex/viewmodels/projects_vm.dart';
-  import 'package:teamvortex/views/widgets/inputs.dart';
+  import 'package:teamvortex/backend/models/entities/Message.dart';
+  import 'package:teamvortex/frontend/viewmodels/project_feed_vm.dart';
+  import 'package:teamvortex/frontend/viewmodels/projects_vm.dart';
+  import 'package:teamvortex/frontend/views/widgets/inputs.dart';
   import 'package:intl/intl.dart';
 
   class ProjectFeedPage extends StatelessWidget {

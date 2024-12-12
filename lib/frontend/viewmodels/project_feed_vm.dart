@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:teamvortex/models/entities/Message.dart';
-import 'package:teamvortex/models/entities/Project.dart';
-import 'package:teamvortex/models/services/firestore/firestore_projects.dart';
-import 'package:teamvortex/models/services/firestore/firestore_user_project_feed.dart';
+import 'package:teamvortex/backend/models/entities/Message.dart';
+import 'package:teamvortex/backend/models/entities/Project.dart';
+import 'package:teamvortex/backend/models/services/firestore/firestore_projects.dart';
+import 'package:teamvortex/backend/models/services/firestore/firestore_user_project_feed.dart';
 
 class ProjectFeedViewModel extends ChangeNotifier {
   Project? _selectedProject;

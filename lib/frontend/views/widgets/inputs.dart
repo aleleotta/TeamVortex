@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teamvortex/models/entities/Project.dart';
-import 'package:teamvortex/models/services/firebase_auth_services.dart';
-import 'package:teamvortex/viewmodels/chats_vm.dart';
-import 'package:teamvortex/viewmodels/nav_bar_vm.dart';
-import 'package:teamvortex/viewmodels/project_feed_vm.dart';
-import 'package:teamvortex/viewmodels/project_notes_vm.dart';
-import 'package:teamvortex/viewmodels/projects_vm.dart';
+import 'package:teamvortex/backend/models/entities/Project.dart';
+import 'package:teamvortex/backend/models/services/firebase_auth_services.dart';
+import 'package:teamvortex/frontend/viewmodels/chats_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/nav_bar_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/project_feed_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/project_notes_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/projects_vm.dart';
 
 /// A reusable input field with a hovering label instead of having a normal Text widget.
 Widget inputFieldWithHoveringLabel(String? labelName, {bool isPassword = false,

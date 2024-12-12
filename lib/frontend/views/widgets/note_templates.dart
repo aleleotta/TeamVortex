@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:teamvortex/models/entities/ProjectNote.dart';
-import 'package:teamvortex/viewmodels/project_notes_vm.dart';
+import 'package:teamvortex/backend/models/entities/ProjectNote.dart';
+import 'package:teamvortex/frontend/viewmodels/project_notes_vm.dart';
 
 /// Creates a card to let the user create a project note.
 Widget projectNoteCardCreate(BuildContext context, String projectRef) {

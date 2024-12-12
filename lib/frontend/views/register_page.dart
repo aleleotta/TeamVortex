@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teamvortex/viewmodels/login_register_vm.dart';
-import 'package:teamvortex/views/widgets/inputs.dart';
+import 'package:teamvortex/frontend/viewmodels/login_register_vm.dart';
+import 'package:teamvortex/frontend/views/widgets/inputs.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});

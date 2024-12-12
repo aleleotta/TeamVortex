@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teamvortex/models/entities/Project.dart';
-import 'package:teamvortex/models/entities/ProjectNote.dart';
-import 'package:teamvortex/models/services/firestore/firestore_project_notes.dart';
+import 'package:teamvortex/backend/models/entities/Project.dart';
+import 'package:teamvortex/backend/models/entities/ProjectNote.dart';
+import 'package:teamvortex/backend/models/services/firestore/firestore_project_notes.dart';
 
 class ProjectNotesViewModel extends ChangeNotifier {
   List<ProjectNote> _notesList = [];

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:teamvortex/models/entities/ProjectNote.dart';
+import 'package:teamvortex/backend/models/entities/ProjectNote.dart';
 
 class FirestoreProjectNotes {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

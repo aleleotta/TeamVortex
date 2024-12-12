@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teamvortex/viewmodels/projects_vm.dart';
-import 'package:teamvortex/views/widgets/inputs.dart';
+import 'package:teamvortex/frontend/viewmodels/projects_vm.dart';
+import 'package:teamvortex/frontend/views/widgets/inputs.dart';
 
 class ProjectsPage extends StatelessWidget {
   const ProjectsPage({super.key});

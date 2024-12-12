@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:teamvortex/models/entities/ChatRoom.dart';
-import 'package:teamvortex/models/entities/Message.dart';
-import 'package:teamvortex/models/services/firestore/firestore_chats.dart';
+import 'package:teamvortex/backend/models/entities/ChatRoom.dart';
+import 'package:teamvortex/backend/models/entities/Message.dart';
+import 'package:teamvortex/backend/models/services/firestore/firestore_chats.dart';
 
 class ChatsViewModel extends ChangeNotifier {
   List<ChatRoom> _chatRooms = [];

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:teamvortex/models/entities/Project.dart';
-import 'package:teamvortex/models/services/firebase_auth_services.dart';
+import 'package:teamvortex/backend/models/entities/Project.dart';
+import 'package:teamvortex/backend/models/services/firebase_auth_services.dart';
 
 class FirestoreProjects {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

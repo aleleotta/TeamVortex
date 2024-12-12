@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:teamvortex/models/entities/Project.dart';
-import 'package:teamvortex/models/services/firebase_auth_services.dart';
-import 'package:teamvortex/models/services/firestore/firestore_projects.dart';
+import 'package:teamvortex/backend/models/entities/Project.dart';
+import 'package:teamvortex/backend/models/services/firebase_auth_services.dart';
+import 'package:teamvortex/backend/models/services/firestore/firestore_projects.dart';
 
 class CreateProjectViewModel extends ChangeNotifier {
   Project? _project;

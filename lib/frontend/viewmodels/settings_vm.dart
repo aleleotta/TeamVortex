@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teamvortex/models/services/firebase_auth_services.dart';
+import 'package:teamvortex/backend/models/services/firebase_auth_services.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   String errorMessage = "";

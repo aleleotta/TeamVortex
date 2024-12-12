@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:teamvortex/models/entities/ChatRoom.dart';
-import 'package:teamvortex/models/entities/Message.dart';
+import 'package:teamvortex/backend/models/entities/ChatRoom.dart';
+import 'package:teamvortex/backend/models/entities/Message.dart';
 
 class FirestoreUserChats {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

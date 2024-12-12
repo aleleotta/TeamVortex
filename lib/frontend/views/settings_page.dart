@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:teamvortex/viewmodels/chats_vm.dart';
-import 'package:teamvortex/viewmodels/nav_bar_vm.dart';
-import 'package:teamvortex/viewmodels/project_feed_vm.dart';
-import 'package:teamvortex/viewmodels/projects_vm.dart';
-import 'package:teamvortex/viewmodels/settings_vm.dart';
-import 'package:teamvortex/views/widgets/inputs.dart';
+import 'package:teamvortex/frontend/viewmodels/chats_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/nav_bar_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/project_feed_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/projects_vm.dart';
+import 'package:teamvortex/frontend/viewmodels/settings_vm.dart';
+import 'package:teamvortex/frontend/views/widgets/inputs.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
