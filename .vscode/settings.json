@@ -1,4 +1,9 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
+<<<<<<< HEAD
     "java.configuration.updateBuildConfiguration": "interactive"
+=======
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "explorer.compactFolders": false
+>>>>>>> 996d7c4458225d6a6a9994857ea4a6e73de4dad3
 }

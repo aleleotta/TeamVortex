@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "436089060",
+    "project_id": "teamvortexdb-16b33",
+    "storage_bucket": "teamvortexdb-16b33.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436089060:android:df3473ab7669c17cc73cf1",
+        "android_client_info": {
+          "package_name": "com.example.teamvortex"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkG7Pj0TKKUhOjN-JFZPhutokFS_4HltY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

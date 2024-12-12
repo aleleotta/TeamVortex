@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # teamvortex
+=======
+# TeamVortex
+>>>>>>> 996d7c4458225d6a6a9994857ea4a6e73de4dad3
 
 A new Flutter project.
 
@@ -13,4 +17,8 @@ A few resources to get you started if this is your first Flutter project:
 
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
+<<<<<<< HEAD
 samples, guidance on mobile development, and a full API reference.
+=======
+samples, guidance on mobile development, and a full API reference.
+>>>>>>> 996d7c4458225d6a6a9994857ea4a6e73de4dad3
